@@ -10,13 +10,13 @@ const ServiceProvidersItem = (props) => {
   }
 
   return (
-    <div>
+    <div style={{height: "50vh"}}>
         <h2>Service Providers</h2>
           
         {
           serviceProviders.length === 0 ? (
-            <div className="m-5 text-right">
-              <h4>No services available in your area range.......</h4>
+            <div className="m-5">
+              <h2 className="no-service-custom">No services are available in your area range.......</h2>
             </div>
           ) : (
             <div className="mt-4">

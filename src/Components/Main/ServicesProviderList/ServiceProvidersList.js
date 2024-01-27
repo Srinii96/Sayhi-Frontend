@@ -100,8 +100,6 @@ const ServiceProvidersList = () => {
   useEffect(()=>{
     console.log("Id changed")
   }, [id])
-
-  console.log(serviceProviders)
   
   return (
     <>
