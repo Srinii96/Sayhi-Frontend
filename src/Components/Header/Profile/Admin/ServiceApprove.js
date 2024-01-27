@@ -27,7 +27,7 @@ const ServiceApprove = () => {
                     "Authorization": localStorage.getItem("token")
                 }
             })
-            const removeId = approveServices.filter( ele => ele._id !== data.id )
+            const removeId = approveServices.filter( ele => ele._id !== data.id)
             setApproveServices(removeId)
         }catch(err){
             console.log(err)
@@ -36,7 +36,7 @@ const ServiceApprove = () => {
 
   return (
     <div className="m-4">
-        <h3 className="text-center">Orders List</h3>
+        <h3 className="text-center">Approve List</h3>
         {approveServices.length > 0 ? (
             <div>
                 {

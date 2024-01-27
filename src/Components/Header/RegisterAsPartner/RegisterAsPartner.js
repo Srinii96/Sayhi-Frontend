@@ -1,15 +1,15 @@
-import { useState, useEffect, useContext } from "react";
-import { useNavigate } from "react-router-dom";
-import { useFormik } from "formik";
-import * as Yup from "yup";
-import { Row, Col, Form, Button, Alert } from "react-bootstrap";
-import { ToastContainer, toast } from "react-toastify";
-import { useSnackbar } from 'notistack';
-import CreatableSelect from "react-select/creatable";
-import 'react-select';
-import _ from "lodash";
-import reducerContext from "../../../contextApi's/contextAPI";
-import axios from "../../../config/axios";
+import { useState, useEffect, useContext } from "react"
+import { useNavigate } from "react-router-dom"
+import { useFormik } from "formik"
+import * as Yup from "yup"
+import { Row, Col, Form, Button, Alert } from "react-bootstrap"
+import { ToastContainer, toast } from "react-toastify"
+import { useSnackbar } from 'notistack'
+import CreatableSelect from "react-select/creatable"
+import 'react-select'
+import _ from "lodash"
+import reducerContext from "../../../contextApi's/contextAPI"
+import axios from "../../../config/axios"
 
 
 const RegisterAsPartner = ()=>{
@@ -115,7 +115,7 @@ const RegisterAsPartner = ()=>{
                 })
 
                 setTimeout(()=>{
-                    navigate("/sign-in")
+                    navigate("/")
                 }, 2000)
 
             } catch(err){
@@ -194,12 +194,14 @@ const RegisterAsPartner = ()=>{
                     autoHideDuration: 3000, 
                 })
             }else{
-                const response = await axios.post("/api/service", serviceObj)
-                const {_id, serviceName} = response.data
+                const { data } = await axios.post("/api/service", serviceObj)
+                const {_id, serviceName} = data
                 setServiceNames([...serviceNames, {"id":_id, serviceName}])
+                console.log(data)
             }
         } catch(err){
-            enqueueSnackbar(err.response.data.errors[0].msg, {
+            console.log(err)
+            enqueueSnackbar(err.response.data.errors[0].msg || err.response.data.errors, {
                 variant: 'error',
                 autoHideDuration: 3000, 
             })

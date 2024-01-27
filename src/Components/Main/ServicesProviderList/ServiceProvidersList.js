@@ -100,8 +100,6 @@ const ServiceProvidersList = () => {
   useEffect(()=>{
     console.log("Id changed")
   }, [id])
-
-  console.log(serviceProviders)
   
   return (
     <>
@@ -152,12 +150,12 @@ const ServiceProvidersList = () => {
             
         </Col>
 
-        <Col className="col-6">
+        <Col className="mb-5 col-6">
           <ServiceProvidersItem serviceProviders={serviceProviders} />
         </Col >
 
         <Col className="col-3">
-          {/* <ServiceAds /> */}
+          <ServiceAds />
         </Col>
       </Row>
     </>
