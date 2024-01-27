@@ -1,0 +1,28 @@
+/* Styles for the image title */
+.image_name {
+    font-style: oblique;
+    font-weight: bold;
+    color: #000;
+    background-color: #bdb76b;
+    border-radius: 20%;
+}
+
+.form_input_custom_category {
+    width: 200px;
+    height: 35px; 
+    border-radius: 8px;
+    border-color: white;
+    margin: 2px;
+}
+
+.form_category_custom_add {
+    padding: 10px 80px;
+    box-sizing: border-box;
+    border-radius: 20px;
+    border: 1px solid #F0F8FF;
+    box-shadow: 0 4px 8px -4px rgba(0, 0, 0, 0.3)
+}
+
+.form_category_custom_add span {
+    color: red;
+  }

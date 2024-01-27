@@ -1,0 +1,327 @@
+.error-container {
+  position: fixed;
+  top: 0;
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  z-index: 9999;
+  padding-top: 20px;
+}
+
+/* Coupon notification */
+.offer-container_custom {
+    padding: 10px 5px;
+    background-color: darkkhaki;
+    box-shadow: 0 4px 8px -4px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+}
+
+
+.offer-container_custom .icon {
+    display: flex;
+    padding: 3px 10px;
+    color: #82acce
+}
+
+.ticker {
+    list-style: none;
+    margin: 0;
+    padding-left: 20px; 
+    white-space: nowrap;
+    overflow: hidden;
+}
+
+.ticker li {
+    padding: 0px 80px;
+    color: #494949;
+    animation: scroll 15s linear infinite;
+    display: inline-block;
+    font-size: 12px;
+}
+
+.ticker li::after {
+    content:"";
+    width: 2px;
+    height: 100%;
+    background: #82acce;
+    position: absolute;
+    top: 0;
+    right: 0;
+}
+
+.ticker li:last-child::after {
+    display: none;
+}
+
+@keyframes scroll {
+    100% {
+        transform: translateX(-1780px);
+    }
+}
+
+/* CategoryIcons component css style */
+
+.category_list_custom_r {
+    overflow: hidden;
+    position: relative;
+  }
+  
+.image-container_r {
+    display: flex;
+    width: max-content; /* Adjust container width based on images */
+    animation: marqueeRight 8s linear infinite;
+    animation-delay: 2s;
+    position: relative;
+}
+  
+.slide_r {
+    flex: 0 0 auto;
+    margin-right: 30px; /* Adjust the margin between images */
+    text-align: center;
+    position: relative; /* Set relative positioning for the hover effect */
+    transition: transform 0.3s; 
+}
+
+.slide_r:hover {
+    cursor: pointer;
+    transform: scale(1.1); 
+    display: block; 
+    border-radius: 5px; 
+}
+  
+.slide_image_r {
+    max-width: 70px;
+    height: auto;  
+}
+
+.slide_r p {
+    font-size: 12px; 
+    color:black;
+    background-color:darkkhaki
+}
+  
+@keyframes marqueeRight {
+    0% {
+      transform: translateX(0)
+    }
+    100% {
+      transform: translateX(-680px)
+    }
+}
+
+.category_list_custom_l {
+    overflow: hidden;
+    position: relative;
+}
+  
+.image-container_l {
+    display: flex;
+    width: max-content; /* Adjust container width based on images */
+    animation: marqueeLeft 18s linear infinite;
+    animation-delay: 3s;
+    position: relative;
+}
+  
+.slide_l {
+    flex: 0 0 auto;
+    margin-right: 20px; /* Adjust the margin between images */
+    text-align: center;
+    position: relative; /* Set relative positioning for the hover effect */
+    transition: transform 0.6s; 
+}
+
+.slide_l:hover {
+    cursor: pointer; /* Change cursor on hover */
+    transform: scale(1.1); /* Increase size on hover (or any other effect you prefer) */
+    display: block; /* Ensure block display for images */
+    border-radius: 5px; /* Optional: add border-radius for rounded images */
+}
+  
+.slide_image_l {
+    max-width: 90px; /* Set maximum width for the images */
+    height: auto; /* Maintain aspect ratio */  
+}
+
+.slide_l p {
+    font-size: 12px; /* Adjust the font size of the image names */
+    color:black;
+    background-color:#bdb76b
+}
+  
+@keyframes marqueeLeft {
+    0% {
+      transform: translateX(-1420px);
+    }
+    100% {
+      transform: translateX(0);
+    }
+}
+  
+
+/* business info */
+.custom-business_info {
+    background-color: #bdb76b;
+    height: 60px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+/* How it works */
+.custom_how_works {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.custom_how_works h3 {
+    text-decoration:underline;
+    text-shadow: 0px 0px 5px#bdb76b;
+}
+
+.custom_how_works span {
+    color: #bdb76b;
+}
+
+.custom_how_works p {
+    font-size: 12px;
+    margin-top: 10px;
+}
+
+/* Why Services At Your Home */
+
+.custom_why_services {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+}
+
+.custom_why_services h3 {
+    text-decoration:underline;
+    text-shadow: 0px 0px 5px #bdb76b;
+}
+
+.custom_why_services span {
+    color: #bdb76b;
+}
+
+.custom_why_services p {
+    margin-top: 20px;
+}
+
+
+/* Service Provider list component*/
+.service-provider-card {
+  width: 650px;
+  margin-bottom: 30px;
+  border: 2px solid #ccc;
+  border-radius: 30px;
+  padding: 20px;
+  background-color: darkkhaki;
+  box-shadow: 0 14px 8px -4px rgba(0, 0, 0, 0.3);
+}
+
+.service-provider-info {
+  display: flex;
+  margin-bottom: 16px;
+}
+
+.image-container {
+  position: relative;
+  width: 100px;
+  height: 100px;
+  margin-right: 20px;
+}
+
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50px;
+}
+
+.details {
+  flex: 1;
+}
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 5px;
+}
+
+.header h2 {
+  font-size: 18px;
+  font-weight: bold;
+}
+
+.rating {
+  display: flex;
+  align-items: center;
+}
+
+.price {
+  font-weight: bold;
+  text-align: end;
+  display: block;
+}
+
+.priceInfo {
+  font-size: 12px;
+  text-align: end;
+  display: block;
+}
+
+.footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  position: relative;
+  padding-top: 4%;
+}
+
+.authorized-dealer {
+  font-size: 12px;
+  font-style:oblique;
+  font-weight: bold;
+  position: absolute;
+  left: 50%;
+  bottom: 10px;
+  transform: translateX(-50%);
+}
+
+.book-button {
+  padding: 6px 6px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 50px;
+  cursor: pointer;
+  position: absolute;
+  right: 10px;
+  bottom: 8px;
+}
+
+.verified-bottom-left {
+  font-size: 12px;
+  font-weight: bold;
+  font-style:oblique;
+  position: absolute;
+  left: 10px;
+  bottom: 10px;
+}
+
+/* Set the size of the icons */
+.verified-bottom-left img,
+.authorized-dealer img {
+  width: 35px;
+  height: 35px;
+}

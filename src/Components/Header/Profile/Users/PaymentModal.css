@@ -1,0 +1,13 @@
+.patment-input-container {
+    display: flex;
+    justify-content: space-between;
+}
+  
+.payment-box {
+    width: 3rem;
+    height: 3rem;
+    text-align: center;
+    font-size: 1.5rem;
+    margin-right: 0.5rem;
+}
+  

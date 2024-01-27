@@ -1,0 +1,40 @@
+/* address component */
+.custom_color_icon {
+    color: #5F9EA0;
+}
+
+.custom_font_address b {
+    font-size: 11px;
+    display:block;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+}
+
+.custom_font b {
+    font-size: 11px;
+}
+
+/* website info component */
+
+.custom_font p {
+    font-size: 12px;
+}
+
+/* social links component */
+
+.custom_font h4 {
+    font-size: 14px;
+}
+
+/* copy right component */
+
+.custom_font_copy p {
+    font-size: 10px;
+}
+
+/* business links */
+
+.custom_font_links {
+    font-size: 12px;
+}

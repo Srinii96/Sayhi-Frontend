@@ -1,0 +1,27 @@
+.services_card_custom {
+    width: 850px;
+    margin-bottom: 30px;
+    border-radius: 10px;
+    padding: 20px;
+    background-color: white;
+    box-shadow: 0 14px 8px -4px rgba(0, 0, 0, 0.3);
+}
+
+.services_image_container {
+    width: 60%;
+    height: 80%;
+    margin-right: 20px;
+}
+
+.services_image_container img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    border-radius: 50px;
+    border: 3px solid #7aa9ab;
+}
+
+.services_status_font {
+    font-size: 16px;
+    font-weight: bold;
+}

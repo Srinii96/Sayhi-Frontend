@@ -1,0 +1,78 @@
+.form_input_custom_doorNo {
+    width: 200px;
+    height: 35px; 
+    border-radius: 8px;
+    border-color: white;
+    margin: 2px;
+}
+
+.form_input_custom_buildingName {
+    width: 300px;
+    height: 35px; 
+    border-radius: 8px;
+    border-color: white;
+    margin: 2px;
+}
+
+.form_input_custom_locality {
+    width: 250px;
+    height: 35px; 
+    border-radius: 8px;
+    border-color: white;
+    margin: 2px;
+}
+
+.form_input_custom_landmark {
+    width: 250px;
+    height: 35px; 
+    border-radius: 8px;
+    border-color: white;
+    margin: 2px;
+}
+
+.form_input_custom_city {
+    width: 250px;
+    height: 35px; 
+    border-radius: 8px;
+    border-color: white;
+    margin: 2px;
+}
+
+.form_input_custom_state {
+    width: 250px;
+    height: 35px; 
+    border-radius: 8px;
+    border-color: white;
+    margin: 2px;
+}
+
+.form_input_custom_pinCode {
+    width: 250px;
+    height: 35px; 
+    border-radius: 8px;
+    border-color: white;
+    margin: 2px;
+}
+
+.form_input_custom_country {
+    width: 250px;
+    height: 35px; 
+    border-radius: 8px;
+    border-color: white;
+    margin: 2px;
+    background-color: white;
+}
+
+.form_input_button {
+    width: 80px;
+    height: 35px; 
+    display: flex;
+    justify-content: center;
+    border-radius: 8px;
+    background-color: #338cf1;
+}
+
+.form_err_custom {
+    color: red;
+    margin: 5px;
+}

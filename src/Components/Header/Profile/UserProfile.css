@@ -1,0 +1,28 @@
+.user_profile {
+    display: flex;
+    flex-direction: column;
+}
+
+.user_profile_In {
+    display: flex;
+    width: 100%;
+    justify-content: center;
+    margin-top: 3vh;
+    margin-bottom: 3vh;
+    gap: 25px;
+}
+
+.user_profile_left {
+    width: 20%;
+    border: 1px solid rgb(207, 207, 207);
+    border-radius: 5px;
+    min-height: 50vh;
+}
+
+.user_profile_right {
+    width: 60%;
+    border: 1px solid rgb(207, 207, 207);
+    border-radius: 5px;
+    min-height: 50vh;
+    background-color: darkkhaki;
+}

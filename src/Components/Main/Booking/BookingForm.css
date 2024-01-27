@@ -1,0 +1,19 @@
+.edit_link_custom {
+    text-decoration: none;
+    color: #fff;
+    font-size: 12px;
+    padding: 2px 6px;
+    border: 1px solid #3498db;
+    border-radius: 3px;
+    background-color: #3498db; 
+}
+
+.form_err_custom {
+    color: red;
+    margin: 5px;
+}
+
+.form_custom {
+    background-color:darkkhaki;
+    border-radius: 8px;
+}
