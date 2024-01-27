@@ -201,7 +201,7 @@ const RegisterAsPartner = ()=>{
             }
         } catch(err){
             console.log(err)
-            enqueueSnackbar(err.response.data.errors[0].msg, {
+            enqueueSnackbar(err.response.data.errors[0].msg || err.response.data.errors, {
                 variant: 'error',
                 autoHideDuration: 3000, 
             })

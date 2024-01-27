@@ -19,10 +19,11 @@ const NavBar = ()=>{
     .some(path => location.pathname.startsWith(path) || location.pathname === '/')
     
     const {state, dispatch} = useContext(reducerContext)
-
+    
     const [userRole, setUserRole] = useState("")
     const [isOpen, setIsOpen] = useState(false)
-
+    const defaultPicture = process.env.PUBLIC_URL + '/Images/logos/profile-pic.png'
+    
     useEffect(()=>{
         if(localStorage.length > 0){
             const {role} = jwtDecode(localStorage.getItem("token"))
@@ -40,30 +41,58 @@ const NavBar = ()=>{
             payload: e.target.value
         })
     }
+
+    // token expiration logout user
+    // function isTokenExpired() {
+    //     const token = localStorage.getItem("token")
+    //     if (!token) {
+    //         return true
+    //     }
     
+    //     try {
+    //         const decodedToken = jwtDecode(token)
+    //         return decodedToken.exp * 1000 < Date.now()
+    //     } catch (error) {
+    //         return true
+    //     }
+    // }
+
     const handleLogout = () => {
         localStorage.clear()
         setUserRole("")
-        window.location.reload()
-        navigate("/")
+
         dispatch({
             type: "SIGN_IN_TOGGLE",
             payload: !state.toggle
         })
+
+        navigate("/")
     }
 
-    const defaultPicture = process.env.PUBLIC_URL + '/Images/logos/profile-pic.png'
+    // useEffect(() => {
+    //     if (isTokenExpired()) {
+    //         handleLogout()
+    //     }
+
+    //     const intervalId = setInterval(() => {
+    //         if (isTokenExpired()) {
+    //             handleLogout()
+    //         }
+    //     }, 3600000)
+
+    //     return () => clearInterval(intervalId)
+    // }, [])
 
     return(
         <>
             <div className="col-4">
-                <a href="http://localhost:3000">
+                <Link to="/">
                     <img 
                         src={process.env.PUBLIC_URL + "/Images/logos/logo.png"} 
                         alt="brand_logo"
                         style={{width: "65px", objectFit: "contain"}}
                     />
-                </a>
+                </Link>
             </div>
 
             <div xs={4} className="rounded-pill">
