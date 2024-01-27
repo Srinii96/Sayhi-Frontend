@@ -71,11 +71,11 @@ const BookingForm = () => {
         if(_.isEmpty(selectedTime)){
             errors.selectedTime = 'Please select Date & available time slot'
         }
-        if(mobileNumber.length === 0){
-            errors.mobileNumber = "please update mobile number"
+        if(mobileNumber?.length === 0){
+            errors.mobileNumber = "please update mobile number & address"
         }
         if(_.isEmpty(address)){
-            errors.address = "please update address"
+            errors.address = "please update address & mobile number"
         }
     }
 
@@ -120,7 +120,6 @@ const BookingForm = () => {
                     }, 2000)
                 }
                 
-
             }catch(err){
                 enqueueSnackbar( `${err.message}`, {
                     variant: 'error',

@@ -27,7 +27,7 @@ const ServiceApprove = () => {
                     "Authorization": localStorage.getItem("token")
                 }
             })
-            const removeId = approveServices.filter( ele => ele._id !== data.id )
+            const removeId = approveServices.filter( ele => ele._id !== data.id)
             setApproveServices(removeId)
         }catch(err){
             console.log(err)

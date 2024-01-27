@@ -1,11 +1,14 @@
 import { Row, Button } from "react-bootstrap"
 import { useState, useEffect } from "react"
 import { FadeLoader } from "react-spinners"
+import { useSnackbar } from 'notistack'
 import axios from "../../../../config/axios"
-import OtpModal from "./OtpModal";
+import OtpModal from "./OtpModal"
 import "./LatestOrders.css"
 
 const AcceptedOrders = () => {
+    const { enqueueSnackbar } = useSnackbar()
+
     const [ loading, setLoading ] = useState(true)
     const [ orders, setOrders ] = useState([]) 
 
@@ -70,9 +73,13 @@ const AcceptedOrders = () => {
             })
 
             setShowOtpModal(false)
-            console.log("check here", data)
+            setOrders(orders.filter(ele => ele._id !== data.id))
+            console.log(data)
         } catch (err) {
-            console.log(err)
+            enqueueSnackbar( err.response.data.error || err.message, {
+                variant: 'error',
+                autoHideDuration: 5000, 
+            })
         }
       }
 
@@ -94,7 +101,7 @@ const AcceptedOrders = () => {
                         <div className="service-provider-info">
                             <div className="order_image_container">
                                 <img
-                                    src={ele.userId.profilePicture.url}
+                                    src={ele.userId?.profilePicture?.url || process.env.PUBLIC_URL + '/Images/logos/service-pic.jpg'}
                                     alt="service-provider"
                                 />
                             </div>

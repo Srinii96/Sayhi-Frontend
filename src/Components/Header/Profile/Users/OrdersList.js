@@ -54,7 +54,7 @@ const OrdersList = (props) => {
         <div className="service-provider-info">
         <div className="order_image_container">
             <img
-            src={order.bookingId.serviceProviderId.userId.profilePicture.url}
+            src={order.bookingId.serviceProviderId.userId?.profilePicture.url}
             alt="service-provider"
             />
         </div>

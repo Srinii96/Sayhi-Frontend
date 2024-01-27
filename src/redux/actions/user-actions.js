@@ -25,14 +25,15 @@ export const setUserAddress = (data)=>{
 export const startGetUserData = ()=>{
     return async (dispatch)=>{
         try {
-            const response = await axios.get("/api/user-data",  {
+            const { data } = await axios.get("/api/user-data",  {
                 headers: {
                     "Authorization": localStorage.getItem("token")
                 }
             })
-            dispatch(setUserData(response.data))
-            if(response.data.address.length > 0){
-                dispatch(setUserAddress(response.data.address))
+            dispatch(setUserData(data))
+
+            if(data.address.length > 0){
+                dispatch(setUserAddress(data.address))
             }
         } catch(err){
             console.log(err)

@@ -52,12 +52,12 @@ const LatestOrders = () => {
             <div className="m-4">
             <h3>Orders List</h3>
                 {orders.map((ele) => (
-                    <div key={ele._id} className="order_card_custom">
+                    <div key={ele._id} className="order_card_custom mt-4">
                         <div className="service-provider-info">
                             <div className="order_image_container">
                                 <img
-                                    src={ele.userId.profilePicture.url}
-                                    alt="service-provider"
+                                    src={ele.userId?.profilePicture?.url || process.env.PUBLIC_URL + '/Images/logos/service-pic.jpg'}
+                                    alt="customer"
                                 />
                             </div>
                             <div>

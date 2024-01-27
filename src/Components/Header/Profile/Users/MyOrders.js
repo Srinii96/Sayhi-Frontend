@@ -98,11 +98,12 @@ const MyOrders = () => {
     })
   }, [socket, latestOrder, orders])
   
-
+  
   useEffect(()=>{
     socket.on("updateOrderStatusEnd", (data)=>{
       const booking = Object.keys(latestOrder).length > 0 && latestOrder?.bookingId
       if(Object.values(booking).includes(data._id)){
+        alert(data)
         setLatestOrder((latestOrder) => ({
           ...latestOrder,
           bookingId: {...latestOrder.bookingId, "isEnded": data.isEnded}
@@ -196,7 +197,7 @@ const MyOrders = () => {
           <div className="service-provider-info">
             <div className="order_image_container">
               <img
-                src={latestOrder?.bookingId?.serviceProviderId?.userId.profilePicture.url}
+                src={latestOrder?.bookingId?.serviceProviderId?.userId?.profilePicture?.url || process.env.PUBLIC_URL + '/Images/logos/service-pic.jpg'}
                 alt="service-provider"
               />
             </div>
