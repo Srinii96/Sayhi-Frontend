@@ -10,7 +10,7 @@ const ServiceProvidersItem = (props) => {
   }
 
   return (
-    <div style={{height: "50vh"}}>
+    <div>
         <h2>Service Providers</h2>
           
         {

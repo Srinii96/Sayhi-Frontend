@@ -16,11 +16,9 @@ const reducer = (state, action)=>{
             return {...state, userLoggedIn: action.payload}
         }
         case "SEARCH_CATEGORY": {
-            console.log("23", action.payload)
             return {...state, search: action.payload}
         }
         case "CLEAR_SEARCH": {
-            console.log("24", action.payload)
             return {...state, search: action.payload}
         }
         default: {

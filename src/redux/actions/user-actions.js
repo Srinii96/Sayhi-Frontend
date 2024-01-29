@@ -36,7 +36,6 @@ export const startGetUserData = ()=>{
                 dispatch(setUserAddress(data.address))
             }
         } catch(err){
-            console.log(err)
             Swal.fire({
                 icon: 'error',
                 title: `Err getting user Info: ${err.message}`,

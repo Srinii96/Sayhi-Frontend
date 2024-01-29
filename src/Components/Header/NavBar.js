@@ -43,19 +43,19 @@ const NavBar = ()=>{
     }
 
     // token expiration logout user
-    // function isTokenExpired() {
-    //     const token = localStorage.getItem("token")
-    //     if (!token) {
-    //         return true
-    //     }
+    function isTokenExpired() {
+        const token = localStorage.getItem("token")
+        if (!token) {
+            return true
+        }
     
-    //     try {
-    //         const decodedToken = jwtDecode(token)
-    //         return decodedToken.exp * 1000 < Date.now()
-    //     } catch (error) {
-    //         return true
-    //     }
-    // }
+        try {
+            const decodedToken = jwtDecode(token)
+            return decodedToken.exp * 1000 < Date.now()
+        } catch (error) {
+            return true
+        }
+    }
 
     const handleLogout = () => {
         localStorage.clear()
@@ -69,19 +69,19 @@ const NavBar = ()=>{
         navigate("/")
     }
 
-    // useEffect(() => {
-    //     if (isTokenExpired()) {
-    //         handleLogout()
-    //     }
+    useEffect(() => {
+        if (isTokenExpired()) {
+            handleLogout()
+        }
 
-    //     const intervalId = setInterval(() => {
-    //         if (isTokenExpired()) {
-    //             handleLogout()
-    //         }
-    //     }, 3600000)
+        const intervalId = setInterval(() => {
+            if (isTokenExpired()) {
+                handleLogout()
+            }
+        }, 3600000)
 
-    //     return () => clearInterval(intervalId)
-    // }, [])
+        return () => clearInterval(intervalId)
+    }, [])
 
     return(
         <>

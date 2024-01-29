@@ -95,10 +95,22 @@ const ServiceProvidersList = () => {
         }
       })()
     }
-  }, [location])
+  }, [])
 
   useEffect(()=>{
-    console.log("Id changed")
+    (async ()=>{
+      const { latitude, longitude } = location
+      try {
+        const { data } = await axios.get(`/api/service-provider/${id}?longitude=${longitude}&latitude=${latitude}`, {
+          headers: {
+            "Authorization": localStorage.getItem("token")
+          }
+        })
+        setServiceProviders(data)
+      }catch(err){
+        setError(err.message)
+      }
+    })()
   }, [id])
   
   return (
@@ -155,7 +167,7 @@ const ServiceProvidersList = () => {
         </Col >
 
         <Col className="col-3">
-          <ServiceAds />
+          {/* <ServiceAds /> */}
         </Col>
       </Row>
     </>

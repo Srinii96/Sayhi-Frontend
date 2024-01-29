@@ -48,7 +48,7 @@ const RegisterAsPartner = ()=>{
             "description": Yup.string().trim("Description cannot include leading and trailing spaces")
             .strict(true)
             .min(5, "Description should be min 5 characters")
-            .matches(/^[A-Z a-z 0-9 , . /]+$/, 'Description should contains only alphabetics, Numerics, camas, & periods')
+            .matches(/^[A-Z a-z 0-9 , . ' /]+$/, 'Description should contains only alphabetics, Numerics, camas, & periods')
             .required("Description is required"),
 
             "categoryId": Yup.string().required("Category is required"),
@@ -194,13 +194,16 @@ const RegisterAsPartner = ()=>{
                     autoHideDuration: 3000, 
                 })
             }else{
-                const { data } = await axios.post("/api/service", serviceObj)
+                const { data } = await axios.post("/api/service", serviceObj, {
+                    headers: {
+                        "Authorization": localStorage.getItem("token")
+                    }
+                })
+
                 const {_id, serviceName} = data
                 setServiceNames([...serviceNames, {"id":_id, serviceName}])
-                console.log(data)
             }
         } catch(err){
-            console.log(err)
             enqueueSnackbar(err.response.data.errors[0].msg || err.response.data.errors, {
                 variant: 'error',
                 autoHideDuration: 3000, 

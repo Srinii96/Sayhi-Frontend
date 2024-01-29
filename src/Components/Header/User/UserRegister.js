@@ -122,7 +122,7 @@ const UserRegister = ()=>{
             <>
                 
             </>
-            <Col className="col-7">
+            <Col className="col-7 mt-5">
                 <Carousel interval={2000} controls={false} indicators={false} touch={false}>
                     {sliderImages.map((img, i) => (
                         <Carousel.Item key={i}>
@@ -137,7 +137,7 @@ const UserRegister = ()=>{
                 </Carousel>
             </Col>
 
-            <Col className="col-5 user_form_custom">
+            <Col className="col-5 user_form_custom mb-5 mt-2">
                 <Row className="text-center">
                     <h2>Register with us </h2> <br />
                 </Row>
