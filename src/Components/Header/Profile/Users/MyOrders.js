@@ -24,16 +24,29 @@ const MyOrders = () => {
 
   const [selectedOrderId, setSelectedOrderId] = useState("")
   const [selectedBookingId, setSelectedBookingId] = useState("")
+  
+  const [ money, setMoney ] = useState("")
 
   useEffect(()=>{
     socket.emit("joinRoom", userId)
+
   }, [userId])
 
+  useEffect(()=>{
+    socket.on('privateMessage', ({ amount }) => {
+      setMoney(amount)
+    })
+  }, [socket])
+  
   useEffect(()=>{
     if(localStorage.length > 0){
         const { id } = jwtDecode(localStorage.getItem("token"))
         setUserId(id)
     }
+  }, [])
+
+  useEffect(()=>{
+
   }, [])
 
   useEffect(()=>{
@@ -245,6 +258,7 @@ const MyOrders = () => {
             }
 
             <PaymentModal
+              money={money}
               show={showAmountModal}
               handleClose={handlePaymentModalClose}
               handlePaymentSubmit={handlePaymentSubmit}

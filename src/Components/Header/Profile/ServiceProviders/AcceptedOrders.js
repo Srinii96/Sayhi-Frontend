@@ -1,12 +1,15 @@
 import { Row, Button } from "react-bootstrap"
-import { Map } from "react-bootstrap-icons"
 import { useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { FadeLoader } from "react-spinners"
 import { useSnackbar } from 'notistack'
+import io from "socket.io-client"
 import axios from "../../../../config/axios"
 import OtpModal from "./OtpModal"
+import EnterAmount from "./EnterAmount"
 import "./LatestOrders.css"
+
+const socket = io.connect("http://localhost:3699")
 
 const AcceptedOrders = () => {
     const { enqueueSnackbar } = useSnackbar()
@@ -18,6 +21,9 @@ const AcceptedOrders = () => {
     const [showOtpModal, setShowOtpModal] = useState(false)
     const [selectedOrderId, setSelectedOrderId] = useState(null)
     const [otp, setOtp] = useState("")
+
+    const [showAmountModal, setShowAmountModal] = useState(false)
+    const [amount, setAmount] = useState('')
 
     useEffect(()=>{
         (async ()=>{
@@ -43,7 +49,6 @@ const AcceptedOrders = () => {
                         "Authorization": localStorage.getItem("token")
                     }
                 })
-
                 setShowOtpModal(true)
                 setSelectedOrderId(id)
             }else{
@@ -67,24 +72,51 @@ const AcceptedOrders = () => {
     }
 
     const handleOtpSubmit = async (res, id) => {
-
         try {
             const { data } = await axios.put(`/api/service-booking/${id}/${res}`, {otp}, {
                 headers: {
                     "Authorization": localStorage.getItem("token")
                 }
             })
-
             setShowOtpModal(false)
-            setOrders(orders.filter(ele => ele._id !== data.id))
-            console.log(data)
+            const updateStatus = orders.map((ele)=>{
+                if(ele._id === data.id){
+                    return {...ele, isEnded: data.isEnded}
+                }else{
+                    return {...ele}
+                }
+            })
+            setOrders(updateStatus)
         } catch (err) {
             enqueueSnackbar( err.response.data.error || err.message, {
                 variant: 'error',
                 autoHideDuration: 5000, 
             })
         }
-      }
+    }
+
+    const handleAmountButtonClick = () => {
+        setShowAmountModal(true)
+    }
+    
+    const handleAmountModalClose = () => {
+        setShowAmountModal(false)
+    }
+
+    const handleAmountSubmit = (amount)=>{
+        setAmount(amount)
+    }
+
+    const sendMessage = () => {
+        const userId = orders[0]?.userId._id
+        socket.emit('privateMessage', { userId, amount })
+    }
+
+    useEffect(() => {
+        if (amount !== '') {
+            sendMessage()
+        }
+    }, [amount, orders])
 
   return (
     <Row>
@@ -100,7 +132,6 @@ const AcceptedOrders = () => {
             </div>
         ) : (
             <div className="m-4">
-                {console.log(orders[0].userId._id, "check")}
             <h3>Orders List</h3>
                 {orders.map((ele) => (
                     <div key={ele._id} className="order_card_custom">
@@ -130,12 +161,12 @@ const AcceptedOrders = () => {
                                     <strong className="m-4">Address- </strong> {
                                     `${ele.addressId.doorNo}, ${ele.addressId.buildingName}, ${ele.addressId.locality} , ${ele.addressId.landmark} , ${ele.addressId.city} - ${ele.addressId.pinCode}.`
                                     }   <span
-                                        className="mx-4"
-                                        style={{ fontSize: '30px', padding: '10px' }}
+                                        className="mx-3"
+                                        style={{ fontSize: '25px', padding: '5px' }}
                                         onClick={()=>{
                                             navigate('/maps', {state: orders[0].userId._id})
                                         }}
-                                    >🗺️</span>
+                                    >🗺️ <span style={{ fontSize: '10px'}}> 👈🏼 click here to view map</span></span>
                                 </p>
                                 { ele.addDetails && 
                                     <p>
@@ -153,6 +184,16 @@ const AcceptedOrders = () => {
                                 className="btn btn-info mx-4"
                                 onClick={() => handleUpdateBookingStatus("otp", ele._id)}
                             >End</Button>}
+                            { ele.isEnded && <Button
+                                onClick={handleAmountButtonClick}
+                            >Enter amount
+                            </Button>}
+
+                            <EnterAmount 
+                                show={showAmountModal}
+                                handleClose={handleAmountModalClose}
+                                handleAmountSubmit={handleAmountSubmit}
+                            />
                         </div>    
                     </div>
                 ))}

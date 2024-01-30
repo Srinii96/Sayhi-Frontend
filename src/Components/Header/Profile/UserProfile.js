@@ -9,6 +9,7 @@ import LatestOrders from './ServiceProviders/LatestOrders'
 import AcceptedOrders from './ServiceProviders/AcceptedOrders'
 import AddCategories from '../Categories/AddCategories'
 import ServiceApprove from './Admin/ServiceApprove'
+import Dashboard from './Admin/Dashboard/Dashboard'
 import "./UserProfile.css"
 
 const UserProfile = () => {
@@ -34,6 +35,7 @@ const UserProfile = () => {
           { activepage === "accepted-orders" && <AcceptedOrders /> }
           { activepage === "categories-add" && <AddCategories /> }
           { activepage === "service-approve" && <ServiceApprove /> }
+          { activepage === "dashboard" && <Dashboard /> }
         </div>
       </div>
     </Row>

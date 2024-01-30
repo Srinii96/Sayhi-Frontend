@@ -1,4 +1,4 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Form, Button, Container, Row, Col } from "react-bootstrap"
 import Calendar from "react-calendar"
 import "react-calendar/dist/Calendar.css"
@@ -8,6 +8,7 @@ import _ from "lodash"
 import { useSnackbar } from 'notistack'
 import "./BookingForm.css"
 import axios from "../../../config/axios"
+import ShowReviews from "../Review/ShowReviews"
 
 const BookingForm = () => {
     const location = useLocation()
@@ -31,16 +32,59 @@ const BookingForm = () => {
     const [selectedDate, setSelectedDate] = useState("")
     const [selectedTime, setSelectedTime] = useState("")
     const [addDetails, setAddDetails] = useState("")
+    const [mNumber, setMNumber] = useState("")
+    const [bookedSlots, setBookedSlots] = useState([])
+    const [reviews, setReviews] = useState([])
     const [ formErrors, setFormErrors ] = useState({})
     const errors = {}
 
-    const bookedSlots = [
-        { date: "13-01-2024", time: "8:00 AM - 10:00 AM" },
-        { date: "13-01-2024", time: "10:00 AM - 12:00 PM" }
-    ]
+    useEffect(()=>{
+        setMNumber(mobileNumber)
+    }, [mobileNumber])
+      
+    useEffect(()=>{
+        if(sId){
+            (async ()=>{
+                const bookings = await axios.get(`/api/service-booking/${sId}`, {
+                    headers: {
+                        "Authorization": localStorage.getItem('token')
+                    }
+                })
+
+                const reviews = axios.get(`/api/reviews/${sId}`, {
+                    headers: {
+                      "Authorization": localStorage.getItem('token')
+                    }
+                })
+
+                try{
+                    const result = await Promise.all([bookings, reviews])
+                    const [book, review] = result
+                    setBookedSlots(book.data)
+                    setReviews(review.data)
+                }catch(err){
+                    console.log(err)
+                }
+            })()
+        }
+    }, [sId])
     
     const isSlotBooked = (formattedDate, timeSlot) =>
-        bookedSlots.some(slot => slot.date === formattedDate && slot.time === timeSlot)
+        bookedSlots.some(slot => {
+            const formattedSlotDate = new Date(slot.scheduleDate).toLocaleDateString('en-IN', {
+            day: '2-digit',
+            month: '2-digit',
+            year: 'numeric'
+            }).replace(/\//g, '-')
+        
+            const timeCondition = slot.scheduleTime === timeSlot
+        
+            if (formattedSlotDate === formattedDate && timeCondition) {
+            return true
+            }
+        
+            return false
+        })
 
     const handleDateChange = date => {
         setSelectedDate(date)
@@ -71,11 +115,11 @@ const BookingForm = () => {
         if(_.isEmpty(selectedTime)){
             errors.selectedTime = 'Please select Date & available time slot'
         }
-        if(mobileNumber?.length === 0){
-            errors.mobileNumber = "please update mobile number & address"
+        if(_.isEmpty(mNumber)){
+            errors.mNumber = "please update mobile number"
         }
         if(_.isEmpty(address)){
-            errors.address = "please update address & mobile number"
+            errors.address = "please update address"
         }
     }
 
@@ -139,8 +183,9 @@ const BookingForm = () => {
 
 
     return (
-        <Container className="mt-4 form_custom">
-            <h3 className="text-center">Confirm Booking Info</h3>
+        <>
+            <Container className="mt-4 form_custom">
+            <h3 className="mt-2 text-center">Confirm Booking Info</h3>
             <Form onSubmit={handleBooking}>
                 <Row className="mt-5">
                     <Col md={2}>
@@ -156,7 +201,7 @@ const BookingForm = () => {
                     <Col md={3}>
                         <Form.Label>Mobile</Form.Label>
                         <Form.Control type="text" defaultValue={mobileNumber}  disabled/>
-                        {formErrors && <span className="form_err_custom">{formErrors.mobileNumber}</span>}
+                        {formErrors.mNumber && <span className="form_err_custom">{formErrors.mNumber}</span>}
                     </Col>
 
                     <Col md={1}>
@@ -257,12 +302,17 @@ const BookingForm = () => {
                     </Col>
                 </Row>
                 <Row className="mt-5 mb-4">
-                    <Col md={12} className="text-center">
+                    <Col md={12} className="text-center mb-4">
                         <Button variant="primary" type="submit">Confirm</Button>
                     </Col>
                 </Row>
             </Form>
-        </Container>
+            </Container>
+        
+            <div className="container mt-4">
+                <ShowReviews reviews={reviews} />
+            </div>
+        </>
     )
 }
 

@@ -1,9 +1,12 @@
-import React, { useState } from "react"
+import { useEffect, useState } from "react"
 import { Modal, Form, Button } from "react-bootstrap"
 
-const AmountModal = ({ show, handleClose, handlePaymentSubmit }) => {
+const AmountModal = ({ money, show, handleClose, handlePaymentSubmit }) => {
   const [amount, setAmount] = useState("")
 
+  useEffect(()=>{
+    setAmount(money)
+  }, [money])
 
   const handleSubmit = () => {
     handlePaymentSubmit(amount)
@@ -21,7 +24,7 @@ const AmountModal = ({ show, handleClose, handlePaymentSubmit }) => {
             type="text"
             placeholder="Enter Amount"
             value={amount}
-            onChange={(e) => setAmount(e.target.value)}
+            disabled
           />
         </Form.Group>
       </Modal.Body>
