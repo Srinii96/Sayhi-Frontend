@@ -1,5 +1,5 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faUserPen, faBagShopping, faHouse, faPlus} from '@fortawesome/free-solid-svg-icons'
+import { faUserPen, faBagShopping, faHouse, faPlus, faChartBar} from '@fortawesome/free-solid-svg-icons'
 import { faCircleCheck } from '@fortawesome/free-regular-svg-icons'
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from "react"
@@ -68,6 +68,12 @@ const UserSideBar = ({activepage}) => {
                     <Link to="/profile/accepted-orders">
                         <FontAwesomeIcon icon={faCircleCheck} size="2x" />
                         <p>Accepted Orders</p>
+                    </Link>
+                }
+                { userRole === "admin" && 
+                    <Link to="/profile/dashboard">
+                        <FontAwesomeIcon icon={faChartBar} size="2x" />
+                        <p>Dashboard</p>
                     </Link>
                 }
             </div>       
