@@ -103,7 +103,6 @@ const MyOrders = () => {
     socket.on("updateOrderStatusEnd", (data)=>{
       const booking = Object.keys(latestOrder).length > 0 && latestOrder?.bookingId
       if(Object.values(booking).includes(data._id)){
-        alert(data)
         setLatestOrder((latestOrder) => ({
           ...latestOrder,
           bookingId: {...latestOrder.bookingId, "isEnded": data.isEnded}

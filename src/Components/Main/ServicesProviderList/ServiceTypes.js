@@ -1,7 +1,7 @@
 import { useEffect } from "react"
 
 const ServiceTypes = (props) => {
-  const { serviceProviders } = props
+  const { serviceProviders, handleServiceChange } = props
 
   const serviceNamesFilter = (serviceProviders) => {
     const uniqueServiceNames = []
@@ -31,7 +31,10 @@ const ServiceTypes = (props) => {
       <ul>
         {serviceNamesFilter(serviceProviders).map((ele)=>{
           return(
-            <li key={ele.id}>{ele.serviceName}</li>
+            <li 
+            key={ele.id}
+            onClick={() => handleServiceChange(ele.id)}
+            >{ele.serviceName} 🔍</li>
           )
         })}
       </ul>

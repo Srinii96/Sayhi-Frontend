@@ -14,6 +14,7 @@ import BookingForm from "../Main/Booking/BookingForm"
 import PaymentSuccess from "./Payment/PaymentSuccess"
 import PaymentFailure from "./Payment/PaymentFailure"
 import ReviewForm from "./Review/ServiceReview"
+import Maps from "../Header/Profile/ServiceProviders/Maps"
 
 const Main = ()=>{
     return(
@@ -64,6 +65,11 @@ const Main = ()=>{
                 <Route path="/reviews" element={
                     <PrivateRoute>
                         <ReviewForm />
+                    </PrivateRoute>
+                } />
+                <Route path="/maps" element={
+                    <PrivateRoute>
+                        <Maps />
                     </PrivateRoute>
                 } />
             </Routes>

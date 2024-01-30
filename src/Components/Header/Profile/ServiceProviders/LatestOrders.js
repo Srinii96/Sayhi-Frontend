@@ -47,6 +47,8 @@ const LatestOrders = () => {
                     loading={loading}
                     size={30}
                 />
+
+                <h4>Empty.....</h4>
             </div>
         ) : (
             <div className="m-4">
@@ -96,8 +98,6 @@ const LatestOrders = () => {
                                 className="btn btn-danger mx-4"
                                 onClick={() => handleUpdateOrderStatus("reject", ele._id)}
                             >Reject</Button>
-                            <Button className="btn btn-warning mx-4">start</Button>
-                            <Button className="btn btn-info mx-4">End</Button>
                         </div>    
                     </div>
                 ))}

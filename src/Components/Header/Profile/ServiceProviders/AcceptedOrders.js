@@ -1,4 +1,6 @@
 import { Row, Button } from "react-bootstrap"
+import { Map } from "react-bootstrap-icons"
+import { useNavigate } from "react-router-dom"
 import { useState, useEffect } from "react"
 import { FadeLoader } from "react-spinners"
 import { useSnackbar } from 'notistack'
@@ -8,6 +10,7 @@ import "./LatestOrders.css"
 
 const AcceptedOrders = () => {
     const { enqueueSnackbar } = useSnackbar()
+    const navigate = useNavigate()
 
     const [ loading, setLoading ] = useState(true)
     const [ orders, setOrders ] = useState([]) 
@@ -92,9 +95,12 @@ const AcceptedOrders = () => {
                     loading={loading}
                     size={30}
                 />
+
+                <h4>Empty.....</h4>
             </div>
         ) : (
             <div className="m-4">
+                {console.log(orders[0].userId._id, "check")}
             <h3>Orders List</h3>
                 {orders.map((ele) => (
                     <div key={ele._id} className="order_card_custom">
@@ -123,7 +129,13 @@ const AcceptedOrders = () => {
                                 <p>
                                     <strong className="m-4">Address- </strong> {
                                     `${ele.addressId.doorNo}, ${ele.addressId.buildingName}, ${ele.addressId.locality} , ${ele.addressId.landmark} , ${ele.addressId.city} - ${ele.addressId.pinCode}.`
-                                    }
+                                    }   <span
+                                        className="mx-4"
+                                        style={{ fontSize: '30px', padding: '10px' }}
+                                        onClick={()=>{
+                                            navigate('/maps', {state: orders[0].userId._id})
+                                        }}
+                                    >🗺️</span>
                                 </p>
                                 { ele.addDetails && 
                                     <p>

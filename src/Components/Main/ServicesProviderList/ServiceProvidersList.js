@@ -1,4 +1,4 @@
-import { Row, Col, Alert } from "react-bootstrap"
+import { Row, Col, Alert, Button } from "react-bootstrap"
 import { useContext, useEffect, useState } from "react"
 import _ from "lodash"
 import {Link, useParams} from "react-router-dom"
@@ -28,6 +28,7 @@ const ServiceProvidersList = () => {
   const [location, setLocation] = useState({})
   const [serviceProviders, setServiceProviders] = useState([])
   const [error, setError] = useState("")
+  const [page, setPage] = useState(1)
 
   useEffect(()=>{
     const redirectUserToSettings = () => {        
@@ -84,7 +85,7 @@ const ServiceProvidersList = () => {
       (async ()=>{
         const { latitude, longitude } = location
         try {
-          const { data } = await axios.get(`/api/service-provider/${id}?longitude=${longitude}&latitude=${latitude}`, {
+          const { data } = await axios.get(`/api/service-provider/${id}?longitude=${longitude}&latitude=${latitude}&page=${page}`, {
             headers: {
               "Authorization": localStorage.getItem("token")
             }
@@ -95,24 +96,16 @@ const ServiceProvidersList = () => {
         }
       })()
     }
-  }, [])
+  }, [location, id, page])
 
-  useEffect(()=>{
-    (async ()=>{
-      const { latitude, longitude } = location
-      try {
-        const { data } = await axios.get(`/api/service-provider/${id}?longitude=${longitude}&latitude=${latitude}`, {
-          headers: {
-            "Authorization": localStorage.getItem("token")
-          }
-        })
-        setServiceProviders(data)
-      }catch(err){
-        setError(err.message)
-      }
-    })()
-  }, [id])
-  
+  const handleServiceChange = (id)=>{
+    const filteredData = serviceProviders.filter(ele => {
+      return ele.serviceIds.some(service => service._id === id)
+    })
+
+    setServiceProviders(filteredData)
+  }
+
   return (
     <>
       <div className="error-container">
@@ -158,16 +151,23 @@ const ServiceProvidersList = () => {
       
       <Row className="my-4">
         <Col className="col-3">
-          <ServiceNames serviceProviders={serviceProviders} />
-            
+          <ServiceNames serviceProviders={serviceProviders} handleServiceChange={handleServiceChange} />   
         </Col>
 
-        <Col className="mb-5 col-6">
+        <Col className="mb-3 col-6">
           <ServiceProvidersItem serviceProviders={serviceProviders} />
+          { serviceProviders.length === 4 && <Button
+            className="float-end" 
+            onClick={() => setPage(page + 1)}
+            >Next</Button>}
+          {page > 1 && <Button 
+            className="float-start"
+            onClick={() => setPage(page - 1)}>previous
+          </Button>}
         </Col >
 
         <Col className="col-3">
-          {/* <ServiceAds /> */}
+          <ServiceAds />
         </Col>
       </Row>
     </>
