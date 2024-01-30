@@ -204,7 +204,7 @@ const RegisterAsPartner = ()=>{
                 setServiceNames([...serviceNames, {"id":_id, serviceName}])
             }
         } catch(err){
-            enqueueSnackbar(err.response.data.errors[0].msg || err.response.data.errors, {
+            enqueueSnackbar(err.response.data.error  || err.response.data.errors[0].msg || err.message, {
                 variant: 'error',
                 autoHideDuration: 3000, 
             })

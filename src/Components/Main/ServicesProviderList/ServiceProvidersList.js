@@ -102,7 +102,7 @@ const ServiceProvidersList = () => {
     const filteredData = serviceProviders.filter(ele => {
       return ele.serviceIds.some(service => service._id === id)
     })
-
+    
     setServiceProviders(filteredData)
   }
 
@@ -167,7 +167,7 @@ const ServiceProvidersList = () => {
         </Col >
 
         <Col className="col-3">
-          <ServiceAds />
+          {/* <ServiceAds /> */}
         </Col>
       </Row>
     </>
