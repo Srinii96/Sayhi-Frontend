@@ -1,6 +1,6 @@
 import { Row, Button } from "react-bootstrap"
 import { useState, useEffect } from "react"
-import { FadeLoader } from "react-spinners";
+import { FadeLoader } from "react-spinners"
 import axios from "../../../../config/axios"
 import "./LatestOrders.css"
 
