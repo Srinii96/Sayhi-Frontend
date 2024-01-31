@@ -1,6 +1,6 @@
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faUserPen, faBagShopping, faHouse, faPlus, faChartBar} from '@fortawesome/free-solid-svg-icons'
-import { faCircleCheck } from '@fortawesome/free-regular-svg-icons'
+import { faCircleCheck, faCalendarDays } from '@fortawesome/free-regular-svg-icons'
 import { Link } from 'react-router-dom'
 import { useEffect, useState } from "react"
 import { jwtDecode } from "jwt-decode"
@@ -74,6 +74,15 @@ const UserSideBar = ({activepage}) => {
                     <Link to="/profile/dashboard">
                         <FontAwesomeIcon icon={faChartBar} size="2x" />
                         <p>Dashboard</p>
+                    </Link>
+                }
+            </div> 
+
+            <div className="user_side_bar_link">
+                { (userRole === "selfEmployee" || userRole === "technician") && 
+                    <Link to="/profile/schedule-calender">
+                        <FontAwesomeIcon icon={faCalendarDays} size="2x" />
+                        <p>Calender</p>
                     </Link>
                 }
             </div>       

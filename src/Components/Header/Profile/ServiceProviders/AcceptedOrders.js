@@ -4,6 +4,7 @@ import { useState, useEffect } from "react"
 import { FadeLoader } from "react-spinners"
 import { useSnackbar } from 'notistack'
 import io from "socket.io-client"
+import { jwtDecode } from "jwt-decode"
 import axios from "../../../../config/axios"
 import OtpModal from "./OtpModal"
 import EnterAmount from "./EnterAmount"
@@ -24,6 +25,21 @@ const AcceptedOrders = () => {
 
     const [showAmountModal, setShowAmountModal] = useState(false)
     const [amount, setAmount] = useState('')
+
+    const [userId, setUserId] = useState("")
+
+    useEffect(()=>{
+        if(localStorage.length > 0){
+            const { id } = jwtDecode(localStorage.getItem("token"))
+            setUserId(id)
+        }
+    }, [])
+
+    useEffect(()=>{
+        socket.emit("joinRoom", userId)
+    }, [userId])
+
+    
 
     useEffect(()=>{
         (async ()=>{
@@ -117,6 +133,17 @@ const AcceptedOrders = () => {
             sendMessage()
         }
     }, [amount, orders])
+
+    useEffect(()=>{
+        socket.on("updatePaymentStatus", (data)=>{
+            enqueueSnackbar( 'Payment is successfull !', {
+                variant: 'info',
+                autoHideDuration: 5000, 
+            })
+            
+            setOrders(orders.filter(ele => ele._id !== data._id))
+        })
+    }, [socket])
 
   return (
     <Row>
