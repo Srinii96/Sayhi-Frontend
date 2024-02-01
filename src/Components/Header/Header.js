@@ -28,6 +28,7 @@ const Header = ()=>{
 
    useEffect(()=>{
        socket.on("rejected", (data)=>{
+        alert(data)
         enqueueSnackbar( data, {
             variant: 'warning',
             autoHideDuration: 5000, 

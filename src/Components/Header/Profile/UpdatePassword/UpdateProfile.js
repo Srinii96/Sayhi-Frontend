@@ -42,7 +42,6 @@ const UpdateProfile = (props) => {
 
       reduxDispatch(updateUserProfilePic(response.data.profilePicture))
     } catch (err) {
-      console.log(err)
       enqueueSnackbar( `Error uploading an image: ${err.message}`, {
         variant: 'error',
         autoHideDuration: 3000, 

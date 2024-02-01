@@ -127,8 +127,11 @@ const RegisterAsPartner = ()=>{
                 }, 2000)
 
             } catch(err){
-                console.log(err)
-                err.response.data.errors && setServerErrors(err.response.data.errors)
+                enqueueSnackbar( "Error while registering: " + err.response.data.error || err.message, {
+                    variant: 'error',
+                    autoHideDuration: 3000, 
+                })
+                err.response.data.error[0] && setServerErrors(err.response.data.error)
             }
         }
     })
@@ -213,7 +216,7 @@ const RegisterAsPartner = ()=>{
                 setServiceNames([...serviceNames, {"id":_id, serviceName}])
             }
         } catch(err){
-            enqueueSnackbar(err.response.data.error  || err.response.data.errors[0].msg || err.message, {
+            enqueueSnackbar(err.response.data.error  || err.response.data.error[0].msg || err.message, {
                 variant: 'error',
                 autoHideDuration: 3000, 
             })

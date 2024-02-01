@@ -1,11 +1,13 @@
 import { useEffect, useState } from 'react'
 import 'leaflet/dist/leaflet.css'
 import 'leaflet-routing-machine/dist/leaflet-routing-machine.css'
-import L from 'leaflet';
+import L from 'leaflet'
+import { useSnackbar } from 'notistack'
 import 'leaflet-routing-machine/dist/leaflet-routing-machine'
 import axios from "../../../../config/axios"
 
 const MapComponent = ({address, userId}) => {
+    const { enqueueSnackbar } = useSnackbar()
 
     const [useRAddress, setUseRAddress] = useState([])
     const [lattitude, longitude] = address[0].location.coordinates
@@ -20,7 +22,10 @@ const MapComponent = ({address, userId}) => {
                 })
                 setUseRAddress(data.location.coordinates)
             }catch(err){
-                console.log(err)
+                enqueueSnackbar( err.response.data.error || err.message, {
+                    variant: 'error',
+                    autoHideDuration: 3000, 
+                })
             }
         })()
     }, [])

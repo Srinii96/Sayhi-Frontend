@@ -61,18 +61,18 @@ const UpdatePassword = (props) => {
             setUpdatePassword("")
             setServerErrors([])
         }catch(err){
-            setServerErrors(err.response?.data.errors || [])
-            err.response?.data.error && enqueueSnackbar( `Error updating profile: ${err.response.data.error}`, {
+             enqueueSnackbar( `Error updating profile: ${err.response.data.error}` || err.message, {
                 variant: 'error',
                 autoHideDuration: 3000, 
             })
+            err.response.data.error[0] && setServerErrors(err.response.data.error)
         }
         
     }
     return (
         <>
             <div className="error_container_custom">
-                {serverErrors.length > 0 && (
+                {serverErrors?.length > 0 && (
                 <Alert variant="danger">
                     <ul>
                         {serverErrors.map(ele => <li key={ele.value}>{ele.msg}</li>)}

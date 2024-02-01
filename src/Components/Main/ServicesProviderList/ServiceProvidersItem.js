@@ -13,7 +13,7 @@ const ServiceProvidersItem = (props) => {
 
   const handleBook = (id)=>{
     const result = serviceProviders.find(ele => ele._id === id)
-    if(userRole === "admin"){
+    if(userRole === "admin" || "technician" || "selfEmployee"){
       enqueueSnackbar( "You are unauthorised to book services", {
         variant: 'error',
         autoHideDuration: 5000, 

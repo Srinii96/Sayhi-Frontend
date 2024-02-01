@@ -1,9 +1,12 @@
 import { useState, useEffect } from 'react'
 import FullCalendar from '@fullcalendar/react'
 import dayGridPlugin from '@fullcalendar/daygrid'
+import { useSnackbar } from 'notistack'
 import axios from '../../../../config/axios'
 
 const ScheduleCalender = () => {
+  const { enqueueSnackbar } = useSnackbar()
+
   const [bookedEvents, setBookedEvents] = useState([])
 
   useEffect(() => {
@@ -17,7 +20,10 @@ const ScheduleCalender = () => {
 
         setBookedEvents(data)
       } catch (err) {
-        console.log(err)
+        enqueueSnackbar( err.response.data.error || err.message, {
+          variant: 'error',
+          autoHideDuration: 3000, 
+        })
       }
     })()
   }, [])

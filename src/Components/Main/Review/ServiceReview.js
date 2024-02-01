@@ -1,18 +1,21 @@
 import { useState } from 'react'
-import { Form, Button, Row, Col } from 'react-bootstrap'
+import { Form, Button, Row, Col, Alert } from 'react-bootstrap'
 import { useLocation, useNavigate } from "react-router-dom"
+import { useSnackbar } from 'notistack'
 import axios from '../../../config/axios'
 import StarRatings from 'react-star-ratings'
 
 const ReviewForm = () => {
     const location = useLocation()
     const navigate = useNavigate()
+    const { enqueueSnackbar } = useSnackbar()
 
     const { oId } = location.state
     const { _id, serviceProviderName } = location.state.serviceProvider
 
     const [comment, setComment] = useState('')
     const [rating, setRating] = useState(0)
+    const [serverErrors, setServerErrors] = useState([])
 
     const handleFormSubmit = async (e) => {
         e.preventDefault()
@@ -28,16 +31,36 @@ const ReviewForm = () => {
             }
         })
 
-        alert("Thanks for the review")
+        enqueueSnackbar("Thanks for the review", {
+            variant: 'success',
+            autoHideDuration: 5000, 
+        })
         navigate('/')
 
-        } catch (error) {
-            console.log('Error submitting review:', error)
+        }catch(err){
+            enqueueSnackbar( 'Error submitting review: '+ err.response.data.error || err.message, {
+                variant: 'error',
+                autoHideDuration: 3000, 
+            })
+            err.response.data.error[0] && setServerErrors(err.response.data.error)
         }
     }
 
   return (
     <Row>
+        <div className="error-container">
+            {serverErrors?.length > 0 && (
+                <Alert variant="danger" className="custom-alert-width">
+                    <ul>
+                        {serverErrors.map((ele, i)=>{
+                            return (
+                                <li key={i}>{ele.msg}</li>
+                            )
+                        })}
+                    </ul>
+                </Alert>
+            )}
+        </div>
         <Col className="d-flex justify-content-center align-items-center mt-2" 
         style={{ height: "58vh" }}>
             <Form onSubmit={handleFormSubmit}>

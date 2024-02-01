@@ -1,10 +1,12 @@
 import { useEffect, useState } from "react"
 import { FadeLoader } from "react-spinners"
 import { useNavigate } from "react-router-dom"
+import { useSnackbar } from 'notistack'
 import axios from "../../../config/axios"
 
 const PaymentSuccess = () => {
     const navigate = useNavigate()
+    const { enqueueSnackbar } = useSnackbar()
 
     const [ loading, setLoading ] = useState(true)
     const [isSuccess, setIsSucess] = useState(false)
@@ -25,7 +27,10 @@ const PaymentSuccess = () => {
                     navigate("/reviews", {state: data})
                 }, 9000)
             }catch(err){
-                console.log(err)
+                enqueueSnackbar( "Error in payment: " + err.response.data.error || err.message, {
+                    variant: 'error',
+                    autoHideDuration: 3000, 
+                })
             }
         })()
     }, [])

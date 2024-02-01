@@ -80,8 +80,8 @@ const UserRegister = ()=>{
                     navigate("/sign-in")
                 }, 3000)  
             }catch(err){
-                setServerErrors(err.response.data.errors)
-                toast.error(err.response.data.errors[0].msg, {
+                setServerErrors(err.response.data.error)
+                toast.error(err.response.data.error[0].msg, {
                     position: "top-right",
                     autoClose: 2000,
                     hideProgressBar: false,

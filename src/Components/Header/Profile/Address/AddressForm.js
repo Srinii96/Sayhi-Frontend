@@ -140,11 +140,11 @@ const AddressForm = (props) => {
         setFormErrors({})
         setServerErrors([])
       }catch(err){
-        setServerErrors(err.response.data.errors)
-        enqueueSnackbar( `Error saving address: ${err.message}`, {
+        enqueueSnackbar( `Error saving address: ${err.message}` || err.response.data.error, {
           variant: 'error',
           autoHideDuration: 3000, 
         })
+        err.response.data.error[0] && setServerErrors(err.response.data.error)
       }
     }
   }
@@ -172,11 +172,11 @@ const AddressForm = (props) => {
         setFormErrors({})
         setServerErrors([])
       }catch(err){
-        setServerErrors(err.response.data.errors)
-        enqueueSnackbar( `Error updating address: ${err.message}`, {
+        enqueueSnackbar( `Error updating address: ${err.message}` || err.response.data.error, {
           variant: 'error',
           autoHideDuration: 3000, 
         })
+        err.response.data.error[0] && setServerErrors(err.response.data.error)
       }
     }
   }
