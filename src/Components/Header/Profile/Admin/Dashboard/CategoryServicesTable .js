@@ -22,7 +22,7 @@ const CategoryServicesTable = ({ categories }) => {
         </div>
       <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
         {categories.map((category, index) => (
-          <Card key={category._id} style={{ width: '14rem', margin: '4px', boxShadow: '0 4px 8px 0 rgba(0,0,0,0.2)', transition: '0.3s', backgroundColor: colors[index % colors.length] }}>
+          <Card key={category._id} style={{ width: '14rem', margin: '2px', boxShadow: '0 2px 4px 0 rgba(0,0,0,0.2)', transition: '0.3s', backgroundColor: colors[index % colors.length] }}>
             <Card.Body>
               <Card.Title className='text-decoration-underline'>{category.title}</Card.Title>
               <Table striped bordered hover size="sm">

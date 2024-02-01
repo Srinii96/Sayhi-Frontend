@@ -1,12 +1,12 @@
-import { useEffect, useRef } from 'react';
-import Chart from 'chart.js/auto';
+import { useEffect, useRef } from 'react'
+import Chart from 'chart.js/auto'
 
 const CategoryChart = ({ categories }) => {
-  const chartRef = useRef(null);
+  const chartRef = useRef(null)
 
   useEffect(() => {
     if (chartRef.current) {
-      chartRef.current.destroy();
+      chartRef.current.destroy()
     }
 
     const ctx = document.getElementById('categoryChart').getContext('2d');
@@ -17,7 +17,7 @@ const CategoryChart = ({ categories }) => {
       backgroundColor: getColor(index),
       borderColor: 'rgba(75, 192, 192, 1)',
       borderWidth: 1,
-    }));
+    }))
 
     const newChart = new Chart(ctx, {
       type: 'bar',
@@ -25,10 +25,10 @@ const CategoryChart = ({ categories }) => {
         labels: ['Number of Services'],
         datasets: datasets,
       },
-    });
+    })
 
-    chartRef.current = newChart;
-  }, [categories]);
+    chartRef.current = newChart
+  }, [categories])
 
   const getColor = (index) => {
     const colors = [
@@ -42,16 +42,16 @@ const CategoryChart = ({ categories }) => {
       "#40E0D0", "#8B4513", "#7CFC00", "#9932CC", "#FF4500",
       "#00FF00", "#6A5ACD", "#A0522D", "#48D1CC", "#B0C4DE",
       "#FFD700", "#FF6347"
-    ];
+    ]
     
-    return colors[index % colors.length];
-  };
+    return colors[index % colors.length]
+  }
 
   return (
     <div className='mx-4'>
       <canvas id="categoryChart" width="400" height="200"></canvas>
     </div>
-  );
-};
+  )
+}
 
-export default CategoryChart;
+export default CategoryChart

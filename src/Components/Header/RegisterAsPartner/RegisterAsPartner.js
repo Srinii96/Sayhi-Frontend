@@ -413,7 +413,7 @@ const RegisterAsPartner = ()=>{
                                 >
                                     <option value="">Select...</option>
                                     <option value="technician">Technician</option>
-                                    <option value="self employee">Self Employee</option>
+                                    <option value="selfEmployee">Self Employee</option>
                                 </Form.Select>
                                 <Form.Text style={{color:"black"}}>If you are a repair man select technician</Form.Text>
                                 <div>
