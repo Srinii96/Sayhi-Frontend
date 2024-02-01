@@ -17,7 +17,7 @@ const RegisterAsPartner = ()=>{
     const navigate = useNavigate()
     const { enqueueSnackbar } = useSnackbar()
 
-    const { state } = useContext(reducerContext)
+    const { state, dispatch } = useContext(reducerContext)
 
     const [serviceNames, setServiceNames] = useState([])
     const [locationNames, setLocationNames] = useState([])
@@ -115,11 +115,20 @@ const RegisterAsPartner = ()=>{
                 })
 
                 setTimeout(()=>{
+                    localStorage.clear()
+
+                    dispatch({
+                        type: "SIGN_IN_TOGGLE",
+                        payload: !state.toggle
+                    })
+
+                    window.location.reload()
                     navigate("/")
                 }, 2000)
 
             } catch(err){
-                setServerErrors(err.response.data.errors)
+                console.log(err)
+                err.response.data.errors && setServerErrors(err.response.data.errors)
             }
         }
     })
@@ -296,7 +305,7 @@ const RegisterAsPartner = ()=>{
         <>
             <ToastContainer />
             <div className="error-container">
-            {serverErrors.length > 0 && (
+            {serverErrors?.length > 0 && (
                 <Alert variant="danger" className="custom-alert-width">
                     <ul>
                         {serverErrors.map((ele, i)=>{
@@ -413,7 +422,7 @@ const RegisterAsPartner = ()=>{
                                 >
                                     <option value="">Select...</option>
                                     <option value="technician">Technician</option>
-                                    <option value="self employee">Self Employee</option>
+                                    <option value="selfEmployee">Self Employee</option>
                                 </Form.Select>
                                 <Form.Text style={{color:"black"}}>If you are a repair man select technician</Form.Text>
                                 <div>

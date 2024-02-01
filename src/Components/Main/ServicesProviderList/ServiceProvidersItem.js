@@ -1,17 +1,34 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useNavigate } from "react-router-dom"
+import { jwtDecode } from "jwt-decode"
+import { useSnackbar } from 'notistack'
 
 
 const ServiceProvidersItem = (props) => {
   const { serviceProviders } = props
   const navigate = useNavigate()
+  const { enqueueSnackbar } = useSnackbar()
 
-  
+  const [userRole, setUserRole] = useState("")
 
   const handleBook = (id)=>{
     const result = serviceProviders.find(ele => ele._id === id)
-    navigate("/confirm-booking", {state:result})
+    if(userRole === "admin"){
+      enqueueSnackbar( "You are unauthorised to book services", {
+        variant: 'error',
+        autoHideDuration: 5000, 
+      })
+    }else{
+      navigate("/confirm-booking", {state:result})
+    }
   }
+
+  useEffect(()=>{
+    if(localStorage.length > 0){
+        const {role} = jwtDecode(localStorage.getItem("token"))
+        setUserRole(role)
+    }
+  }, [])
 
   return (
     <div>
@@ -29,7 +46,7 @@ const ServiceProvidersItem = (props) => {
               <div className="service-provider-info">
                 <div className="image-container">
                   <img
-                    src={ele.userId.profilePicture.url || process.env.PUBLIC_URL + '/Images/logos/service-pic.jpg'}
+                    src={ele.userId.profilePicture?.url || process.env.PUBLIC_URL + '/Images/logos/service-pic.jpg'}
                     alt="service-provider"
                   />
                 </div>

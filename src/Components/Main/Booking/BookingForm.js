@@ -63,7 +63,10 @@ const BookingForm = () => {
                     setBookedSlots(book.data)
                     setReviews(review.data)
                 }catch(err){
-                    console.log(err)
+                    enqueueSnackbar( err.response.data.error || err.response.data.error[0] || err.message, {
+                        variant: 'error',
+                        autoHideDuration: 5000, 
+                    })
                 }
             })()
         }
@@ -106,7 +109,9 @@ const BookingForm = () => {
     date ? `${String(date.getDate()).padStart(2, '0')}-${String(date.getMonth() + 1).padStart(2, '0')}-${date.getFullYear()}` : ''
 
     const today = new Date()
-    const endOfMonth = new Date(today.getFullYear(), today.getMonth() + 1, 0)
+    const tomorrow = new Date(today)
+    tomorrow.setDate(today.getDate() + 1)
+    const endOfMonth = new Date(tomorrow.getFullYear(), tomorrow.getMonth() + 1, 0)
 
     const runValidations = ()=>{
         if(_.isEmpty(serviceId)){
@@ -165,7 +170,7 @@ const BookingForm = () => {
                 }
                 
             }catch(err){
-                enqueueSnackbar( `${err.message}`, {
+                enqueueSnackbar( err.response.data. error || `${err.message}`, {
                     variant: 'error',
                     autoHideDuration: 3000, 
                 })
@@ -275,7 +280,7 @@ const BookingForm = () => {
                         <Calendar
                             onChange={handleDateChange}
                             value={selectedDate}
-                            minDate={today}
+                            minDate={tomorrow}
                             maxDate={endOfMonth}
                         />
                         </Form.Group>

@@ -21,20 +21,30 @@ const ShowReviews = ({ reviews }) => {
   return (
     <div>
       <h3>Review & Ratings</h3>
-      {reviews.map((review, index) => (
-        <Card key={index} className="m-3">
-          <Card.Body>
-            <Card.Title>
-              <FontAwesomeIcon icon={faUser} size="1x" />
-              <span className='m-4' style={{ fontWeight: 'bold' }}>User @{index + 1}</span>
-            </Card.Title>
-            <Card.Subtitle className="mt-2 text-muted">
-              Rating: {renderStars(review.rating)}
-            </Card.Subtitle>
-            <Card.Text className="mt-4 text-muted">Comment: {review.comment}</Card.Text>
-          </Card.Body>
-        </Card>
-      ))}
+      {
+        reviews.length > 0 ? (
+          <>
+            {reviews.map((review, index) => (
+            <Card key={index} className="m-3">
+              <Card.Body>
+                <Card.Title>
+                  <FontAwesomeIcon icon={faUser} size="1x" />
+                  <span className='m-4' style={{ fontWeight: 'bold' }}>User @{index + 1}</span>
+                </Card.Title>
+                <Card.Subtitle className="mt-2 text-muted">
+                  Rating: {renderStars(review.rating)}
+                </Card.Subtitle>
+                <Card.Text className="mt-4 text-muted">Comment: {review.comment}</Card.Text>
+              </Card.Body>
+            </Card>
+            ))}
+          </>
+        ) : (
+          <>
+            <h3 className='text-center mb-4'>No reviews.......</h3>
+          </>
+        )
+      }
     </div>
   )
 }

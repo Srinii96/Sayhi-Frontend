@@ -82,7 +82,9 @@ const ReviewForm = () => {
 
                     {/* Skip Button */}
                 <Row className="m-2">
-                    <Button className="btn btn-secondary">
+                    <Button 
+                    onClick={() => navigate('/')}
+                    className="btn btn-secondary">
                         Skip
                     </Button>
                 </Row>

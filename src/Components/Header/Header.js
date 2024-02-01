@@ -18,6 +18,7 @@ const Header = ()=>{
 
    useEffect(()=>{
     socket.on("approved", (data)=>{
+        alert(data)
         enqueueSnackbar( data, {
             variant: 'info',
             autoHideDuration: 5000, 

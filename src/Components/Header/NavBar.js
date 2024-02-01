@@ -3,6 +3,7 @@ import { Button, Dropdown, InputGroup, FormControl } from "react-bootstrap"
 import { Link, useNavigate, useLocation, useParams } from "react-router-dom"
 import { jwtDecode } from "jwt-decode"
 import { useSelector } from "react-redux"
+import Swal from "sweetalert2"
 import reducerContext from "../../contextApi's/contextAPI"
 import "./style.css"
 
@@ -58,21 +59,33 @@ const NavBar = ()=>{
     }
 
     const handleLogout = () => {
-        localStorage.clear()
-        setUserRole("")
-
-        dispatch({
-            type: "SIGN_IN_TOGGLE",
-            payload: !state.toggle
+        Swal.fire({
+            title: 'Are you sure... ?',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#3085d6',
+            cancelButtonColor: '#d33',
+            confirmButtonText: 'Yes, log out!'
+        }).then((result) => {
+            if (result.isConfirmed) {
+                localStorage.clear();
+                setUserRole("");
+    
+                dispatch({
+                    type: "SIGN_IN_TOGGLE",
+                    payload: !state.toggle
+                });
+    
+                window.location.reload();
+                navigate("/");
+            }
         })
-
-        navigate("/")
     }
 
     useEffect(() => {
-        if (isTokenExpired()) {
-            handleLogout()
-        }
+        // if (isTokenExpired()) {
+        //     handleLogout()
+        // }
 
         const intervalId = setInterval(() => {
             if (isTokenExpired()) {
