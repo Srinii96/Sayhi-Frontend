@@ -69,7 +69,7 @@ const PieChart = () => {
   const userCount = users.find((user) => user._id === 'user')?.count || 0
   // const adminCount = users.find((user) => user._id === 'admin')?.count || 0
   const technicianCount = users.find((user) => user._id === 'technician')?.count || 0
-  const selfCount = users.find((user) => user._id === 'self')?.count || 0
+  const selfCount = users.find((user) => user._id === 'selfEmployee')?.count || 0
 
   return (
     <>

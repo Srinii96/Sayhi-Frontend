@@ -63,7 +63,10 @@ const BookingForm = () => {
                     setBookedSlots(book.data)
                     setReviews(review.data)
                 }catch(err){
-                    console.log(err.message)
+                    enqueueSnackbar( err.response.data.error || err.response.data.error[0] || err.message, {
+                        variant: 'error',
+                        autoHideDuration: 5000, 
+                    })
                 }
             })()
         }

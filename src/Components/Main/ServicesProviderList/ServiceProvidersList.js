@@ -167,7 +167,7 @@ const ServiceProvidersList = () => {
         </Col >
 
         <Col className="col-3">
-          {/* <ServiceAds /> */}
+          <ServiceAds />
         </Col>
       </Row>
     </>
