@@ -1,15 +1,19 @@
 import { useState } from "react"
 import { Button } from "react-bootstrap"
+import { useSnackbar } from 'notistack'
 import axios from "../../../../config/axios"
 import PaymenModal from "./PaymentModal"
 
 const OrdersList = (props) => {
   const { order, renderStatusImage } = props
+  const { enqueueSnackbar } = useSnackbar()
 
   const [showAmountModal, setShowAmountModal] = useState(false)
 
   const [selectedOrderId, setSelectedOrderId] = useState("")
   const [selectedBookingId, setSelectedBookingId] = useState("")
+  const [ money, setMoney ] = useState("")
+
 
   const { doorNo, buildingName, city } = order.bookingId.addressId
   const date = order.bookingId.scheduleDate.split("T")[0]
@@ -45,7 +49,10 @@ const OrdersList = (props) => {
       //redirect to payment URL
       window.location = data.url
     }else{
-    alert("please enter amount")
+      enqueueSnackbar("please enter amount", {
+        variant: 'warning',
+        autoHideDuration: 3000, 
+      })
     }
   }    
 
@@ -101,6 +108,7 @@ const OrdersList = (props) => {
             </div>}
 
             <PaymenModal
+              money={money}
               show={showAmountModal}
               handleClose={handlePaymentModalClose}
               handlePaymentSubmit={handlePaymentSubmit}

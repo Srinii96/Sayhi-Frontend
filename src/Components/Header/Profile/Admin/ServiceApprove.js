@@ -1,9 +1,12 @@
 import { useEffect, useState } from "react"
 import { Button } from "react-bootstrap"
+import { useSnackbar } from 'notistack'
 import axios from "../../../../config/axios"
 import './ServiceApprove.css'
 
 const ServiceApprove = () => {
+    const { enqueueSnackbar } = useSnackbar()
+
     const [ approveServices, setApproveServices ] = useState([])
 
     useEffect(()=>{
@@ -16,7 +19,10 @@ const ServiceApprove = () => {
                 setApproveServices(res.data)
             })
             .catch((err)=>{
-                console.log(err.message)
+                enqueueSnackbar( err.message, {
+                    variant: 'error',
+                    autoHideDuration: 3000, 
+                })
             })
     }, [])
 
@@ -30,7 +36,11 @@ const ServiceApprove = () => {
             const removeId = approveServices.filter( ele => ele._id !== data.id)
             setApproveServices(removeId)
         }catch(err){
-            console.log(err)
+            enqueueSnackbar( err.response.data.error || err.message, {
+                variant: 'error',
+                autoHideDuration: 5000, 
+            })
+
         }
     }
 

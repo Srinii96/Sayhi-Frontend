@@ -56,7 +56,7 @@ const AddCategories = ()=>{
                     })
                 })
                 .catch((err)=>{
-                    enqueueSnackbar(err.response.data.errors[0], {
+                    enqueueSnackbar(err.response.data.error[0].msg || err.response.data.error || err.message, {
                         variant: 'error',
                         autoHideDuration: 4000, 
                     })

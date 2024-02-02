@@ -83,7 +83,10 @@ const AcceptedOrders = () => {
                 setOrders(updateStatus)
             }
         }catch(err){
-            console.log(err)
+            enqueueSnackbar( err.response.data.error || err.message, {
+                variant: 'error',
+                autoHideDuration: 5000, 
+            })
         }
     }
 

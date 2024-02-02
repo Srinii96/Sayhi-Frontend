@@ -1,10 +1,13 @@
 import { Row, Button } from "react-bootstrap"
 import { useState, useEffect } from "react"
 import { FadeLoader } from "react-spinners"
+import { useSnackbar } from 'notistack'
 import axios from "../../../../config/axios"
 import "./LatestOrders.css"
 
 const LatestOrders = () => {
+    const { enqueueSnackbar } = useSnackbar()
+
     const [ loading, setLoading ] = useState(true)
     const [ orders, setOrders ] = useState([]) 
 
@@ -18,7 +21,11 @@ const LatestOrders = () => {
                 })
                 setOrders(response.data)
             }catch(err){
-                console.log(err)
+                enqueueSnackbar( err.response.data.error || err.message, {
+                    variant: 'error',
+                    autoHideDuration: 5000, 
+                })
+
             }
         })()
 
@@ -34,7 +41,10 @@ const LatestOrders = () => {
             const removeId = orders.filter( ele => ele._id !== data.id)
             setOrders(removeId)
         }catch(err){
-            console.log(err)
+            enqueueSnackbar( err.response.data.error || err.message, {
+                variant: 'error',
+                autoHideDuration: 3000, 
+            })
         }
     }
 

@@ -1,10 +1,13 @@
 import React, { useEffect, useState } from 'react'
 import { Pie } from 'react-chartjs-2'
 import _ from 'lodash'
+import { useSnackbar } from 'notistack'
 import axios from '../../../../../config/axios'
 import UserCountCard from './UserCountCard'
 
 const PieChart = () => {
+  const { enqueueSnackbar } = useSnackbar()
+
   const [users, setUsers] = useState([])
   const [chartData, setChartData] = useState({})
 
@@ -18,7 +21,10 @@ const PieChart = () => {
         })
         setUsers(data)
       } catch (err) {
-        console.log(err)
+        enqueueSnackbar( err.message, {
+          variant: 'error',
+          autoHideDuration: 3000, 
+        })
       }
     }
 

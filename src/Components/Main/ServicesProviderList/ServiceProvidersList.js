@@ -3,6 +3,7 @@ import { useContext, useEffect, useState } from "react"
 import _ from "lodash"
 import {Link, useParams} from "react-router-dom"
 import Swal from "sweetalert2"
+import { useSnackbar } from 'notistack'
 import "./style.css"
 import reducerContext from "../../../contextApi's/contextAPI"
 import OfferInfo from "../Home/OfferInfo"
@@ -14,6 +15,7 @@ import ServiceAds from "./ServiceAds"
 const ServiceProvidersList = () => {
   const { id } = useParams()
   const { state } = useContext(reducerContext)
+  const { enqueueSnackbar } = useSnackbar()
 
   const containerStyles = {
     display: 'flex',
@@ -73,7 +75,10 @@ const ServiceProvidersList = () => {
           }
         }
       }catch(err){
-        console.error('Error:', err)
+        enqueueSnackbar('Error: ' + err.message, {
+          variant: 'error',
+          autoHideDuration: 5000, 
+        })
       }
     }
     checkLocationPermission()

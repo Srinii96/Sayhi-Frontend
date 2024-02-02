@@ -1,5 +1,5 @@
 import { useState, useEffect } from "react"
-import { Form, Button, Container, Row, Col } from "react-bootstrap"
+import { Form, Button, Container, Row, Col, Alert } from "react-bootstrap"
 import Calendar from "react-calendar"
 import "react-calendar/dist/Calendar.css"
 import { useSelector } from "react-redux"
@@ -36,7 +36,9 @@ const BookingForm = () => {
     const [bookedSlots, setBookedSlots] = useState([])
     const [reviews, setReviews] = useState([])
     const [ formErrors, setFormErrors ] = useState({})
+    const [serverErrors, setServerErrors] = useState([])
     const errors = {}
+    
 
     useEffect(()=>{
         setMNumber(mobileNumber)
@@ -63,7 +65,7 @@ const BookingForm = () => {
                     setBookedSlots(book.data)
                     setReviews(review.data)
                 }catch(err){
-                    enqueueSnackbar( err.response.data.error || err.response.data.error[0] || err.message, {
+                    enqueueSnackbar( err.response.data.error ||  err.message, {
                         variant: 'error',
                         autoHideDuration: 5000, 
                     })
@@ -170,10 +172,11 @@ const BookingForm = () => {
                 }
                 
             }catch(err){
-                enqueueSnackbar( err.response.data. error || `${err.message}`, {
+                enqueueSnackbar( err.response.data.error || err.message, {
                     variant: 'error',
-                    autoHideDuration: 3000, 
+                    autoHideDuration: 5000, 
                 })
+            err.response.data.error[0] && setServerErrors(err.response.data.error)
             }
         }  
     }
@@ -189,6 +192,19 @@ const BookingForm = () => {
 
     return (
         <>
+            <div className="error-container">
+                {serverErrors?.length > 0 && (
+                    <Alert variant="danger" className="custom-alert-width">
+                        <ul>
+                            {serverErrors.map((ele, i)=>{
+                                return (
+                                    <li key={i}>{ele.msg}</li>
+                                )
+                            })}
+                        </ul>
+                    </Alert>
+                )}
+            </div>
             <Container className="mt-4 form_custom">
             <h3 className="mt-2 text-center">Confirm Booking Info</h3>
             <Form onSubmit={handleBooking}>

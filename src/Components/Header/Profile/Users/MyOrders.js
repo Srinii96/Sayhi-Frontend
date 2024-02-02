@@ -4,6 +4,7 @@ import { Row, Button } from "react-bootstrap"
 import _ from "lodash"
 import io from "socket.io-client"
 import { jwtDecode } from "jwt-decode"
+import { useSnackbar } from 'notistack'
 import axios from "../../../../config/axios"
 import "./MyOrders.css"
 import OrdersList from "./OrdersList"
@@ -13,6 +14,7 @@ const socket = io.connect("http://localhost:3699")
 
 const MyOrders = () => {
   const location = useLocation()
+  const { enqueueSnackbar } = useSnackbar()
 
   const { bookingId, orderId } = !_.isEmpty(location.state) && location.state
 
@@ -60,7 +62,10 @@ const MyOrders = () => {
           })
           setLatestOrder({...data})
         }catch(err){
-          console.log(err)
+          enqueueSnackbar( err.message, {
+            variant: 'error',
+            autoHideDuration: 3000, 
+          })
         }
       })()
     }
@@ -83,7 +88,10 @@ const MyOrders = () => {
         }
         
       }catch(err){
-        console.log(err)
+        enqueueSnackbar( err.message, {
+          variant: 'error',
+          autoHideDuration: 3000, 
+        })
       }
     })()
   }, [bookingId, orderId])
@@ -195,7 +203,10 @@ const MyOrders = () => {
       //redirect to payment URL
       window.location = data.url
     }else{
-    alert("please enter amount")
+      enqueueSnackbar("please enter amount", {
+        variant: 'warning',
+        autoHideDuration: 3000, 
+      })
     }
   }
   

@@ -1,8 +1,11 @@
 import { useState, useEffect } from 'react'
+import { useSnackbar } from 'notistack'
 import axios from '../../../../../config/axios'
 import './OrdersRevenueChart.css'
 
 const DashboardCards = () => {
+  const { enqueueSnackbar } = useSnackbar()
+
   const [data, setData] = useState([])
 
   useEffect(() => {
@@ -17,7 +20,10 @@ const DashboardCards = () => {
         setData(response.data || []);
         console.log(response.data, "345")
       } catch (err) {
-        console.log(err)
+        enqueueSnackbar( err.response.data.error || err.message, {
+          variant: 'error',
+          autoHideDuration: 3000, 
+        })
       }
     }
 
