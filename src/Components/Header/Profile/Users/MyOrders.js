@@ -289,7 +289,7 @@ const MyOrders = () => {
       <h3>Previous Orders</h3>
         {orders.length > 0 ? (
           orders.map((ele) => (
-            <OrdersList key={ele._id} order={ele} renderStatusImage={renderStatusImage} />
+            <OrdersList key={ele._id} order={ele} renderStatusImage={renderStatusImage} money={money} />
           ))
         ) : (
           <h3 className="order_service_font text-center">Empty.......</h3>
