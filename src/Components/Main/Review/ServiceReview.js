@@ -42,7 +42,7 @@ const ReviewForm = () => {
                 variant: 'error',
                 autoHideDuration: 3000, 
             })
-            err.response.data.error[0] && setServerErrors(err.response.data.error)
+            Array.isArray(err.response.data.error) && setServerErrors(err.response.data.error)
         }
     }
 

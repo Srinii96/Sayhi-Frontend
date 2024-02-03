@@ -1,11 +1,11 @@
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { Button } from "react-bootstrap"
 import { useSnackbar } from 'notistack'
 import axios from "../../../../config/axios"
 import PaymenModal from "./PaymentModal"
 
 const OrdersList = (props) => {
-  const { order, renderStatusImage } = props
+  const { order, renderStatusImage, money:pay} = props
   const { enqueueSnackbar } = useSnackbar()
 
   const [showAmountModal, setShowAmountModal] = useState(false)
@@ -13,7 +13,6 @@ const OrdersList = (props) => {
   const [selectedOrderId, setSelectedOrderId] = useState("")
   const [selectedBookingId, setSelectedBookingId] = useState("")
   const [ money, setMoney ] = useState("")
-
 
   const { doorNo, buildingName, city } = order.bookingId.addressId
   const date = order.bookingId.scheduleDate.split("T")[0]
@@ -54,7 +53,11 @@ const OrdersList = (props) => {
         autoHideDuration: 3000, 
       })
     }
-  }    
+  }
+  
+  useEffect(()=>{
+    setMoney(pay)
+  }, [pay])
 
   return (
     <div className="order_card_custom" key={order._id}>

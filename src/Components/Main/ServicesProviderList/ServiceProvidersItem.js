@@ -11,24 +11,26 @@ const ServiceProvidersItem = (props) => {
 
   const [userRole, setUserRole] = useState("")
 
-  const handleBook = (id)=>{
-    const result = serviceProviders.find(ele => ele._id === id)
-    if(userRole === "admin" || "technician" || "selfEmployee"){
-      enqueueSnackbar( "You are unauthorised to book services", {
-        variant: 'error',
-        autoHideDuration: 5000, 
-      })
-    }else{
-      navigate("/confirm-booking", {state:result})
-    }
-  }
-
   useEffect(()=>{
     if(localStorage.length > 0){
         const {role} = jwtDecode(localStorage.getItem("token"))
         setUserRole(role)
     }
   }, [])
+
+  const handleBook = (id)=>{
+    const result = serviceProviders.find(ele => ele._id === id)
+    if(userRole === "user"){
+      navigate("/confirm-booking", {state:result})
+    }else{
+      enqueueSnackbar( "You are unauthorised to book services", {
+        variant: 'error',
+        autoHideDuration: 5000, 
+      })
+    }
+  }
+
+  
 
   return (
     <div>

@@ -48,6 +48,13 @@ const LatestOrders = () => {
         }
     }
 
+    let date = new Date("Feb 02 2024 19:56:42 GMT+0530")
+    let year = date.getFullYear()
+    let month = ("0" + (date.getMonth() + 1)).slice(-2)
+    let day = ("0" + date.getDate()).slice(-2)
+    let hour = ("0" + date.getHours()).slice(-2)
+    let formattedDate = `${year}-${month}-${day} ${hour}`
+
   return (
     <Row>
         {!orders.length > 0 ? (
@@ -100,14 +107,14 @@ const LatestOrders = () => {
                             </div>
                         </div>
                         <div>
-                            <Button 
+                            {ele.scheduleDate.split("T")[0] === formattedDate && <Button 
                                 className="btn btn-success mx-4"
                                 onClick={() => handleUpdateOrderStatus("accept", ele._id)}
-                            >Accept</Button>
-                            <Button 
+                            >Accept</Button>}
+                            {<Button 
                                 className="btn btn-danger mx-4"
                                 onClick={() => handleUpdateOrderStatus("reject", ele._id)}
-                            >Reject</Button>
+                            >Reject</Button>}
                         </div>    
                     </div>
                 ))}
