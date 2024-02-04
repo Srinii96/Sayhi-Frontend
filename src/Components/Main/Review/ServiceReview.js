@@ -38,7 +38,8 @@ const ReviewForm = () => {
         navigate('/')
 
         }catch(err){
-            enqueueSnackbar( 'Error submitting review: '+ err.response.data.error || err.message, {
+            const error = err.response.data.error === "string" && err.response.data.error || " "
+            enqueueSnackbar( `Error updating profile: ${error}` || err.message, {
                 variant: 'error',
                 autoHideDuration: 3000, 
             })

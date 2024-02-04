@@ -1,6 +1,7 @@
 import React, { useEffect, useState } from 'react'
 import { Pie } from 'react-chartjs-2'
 import _ from 'lodash'
+import { FadeLoader } from "react-spinners"
 import { useSnackbar } from 'notistack'
 import axios from '../../../../../config/axios'
 import UserCountCard from './UserCountCard'
@@ -10,6 +11,7 @@ const PieChart = () => {
 
   const [users, setUsers] = useState([])
   const [chartData, setChartData] = useState({})
+  const [ loading, setLoading ] = useState(true)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -82,12 +84,24 @@ const PieChart = () => {
       <div className='text-center m-4'>
         <h4 style={{ fontSize: '18px', fontStyle: 'italic', fontWeight: 'bold' }}>Users Info</h4>
       </div>
-      <div className="d-flex justify-content-between">
-        <div style={{ width: '500px', height: '350px' }}>
-          {!_.isEmpty(chartData) && <Pie data={chartData} options={options} />}
+      {
+        users.length > 0 ? (
+        <div className="d-flex justify-content-between">
+          <div style={{ width: '500px', height: '350px' }}>
+            {!_.isEmpty(chartData) && <Pie data={chartData} options={options} />}
+          </div>
+          <UserCountCard userCount={userCount} technicianCount={technicianCount} selfCount={selfCount} />
         </div>
-        <UserCountCard userCount={userCount} technicianCount={technicianCount} selfCount={selfCount} />
-      </div>
+        ) : (
+          <div className="d-flex justify-content-center mt-4">
+            <FadeLoader
+              color={"#7aa9ab"}
+              loading={loading}
+              size={30}
+            />
+          </div>
+        )
+      }
     </>
   )
 }

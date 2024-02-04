@@ -172,9 +172,10 @@ const BookingForm = () => {
                 }
                 
             }catch(err){
-                enqueueSnackbar( err.response.data.error || err.message, {
+                const error = err.response.data.error === "string" && err.response.data.error || " "
+                enqueueSnackbar( `Error updating profile: ${error}` || err.message, {
                     variant: 'error',
-                    autoHideDuration: 5000, 
+                    autoHideDuration: 3000, 
                 })
                 Array.isArray(err.response.data.error) && setServerErrors(err.response.data.error)
             }

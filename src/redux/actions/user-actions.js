@@ -31,7 +31,7 @@ export const startGetUserData = ()=>{
                 }
             })
             dispatch(setUserData(data))
-
+            
             if(data.address.length > 0){
                 dispatch(setUserAddress(data.address))
             }

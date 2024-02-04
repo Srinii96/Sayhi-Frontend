@@ -107,7 +107,7 @@ const LatestOrders = () => {
                             </div>
                         </div>
                         <div>
-                            {ele.scheduleDate.split("T")[0] === formattedDate && <Button 
+                            {<Button 
                                 className="btn btn-success mx-4"
                                 onClick={() => handleUpdateOrderStatus("accept", ele._id)}
                             >Accept</Button>}

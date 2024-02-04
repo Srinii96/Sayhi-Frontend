@@ -1,5 +1,6 @@
 import { useState, useEffect } from 'react'
 import { useSnackbar } from 'notistack'
+import { FadeLoader } from "react-spinners"
 import axios from '../../../../../config/axios'
 import './OrdersRevenueChart.css'
 
@@ -7,6 +8,7 @@ const DashboardCards = () => {
   const { enqueueSnackbar } = useSnackbar()
 
   const [data, setData] = useState([])
+  const [ loading, setLoading ] = useState(true)
 
   useEffect(() => {
     const fetchData = async () => {
@@ -18,7 +20,6 @@ const DashboardCards = () => {
         })
 
         setData(response.data || []);
-        console.log(response.data, "345")
       } catch (err) {
         enqueueSnackbar( err.response.data.error || err.message, {
           variant: 'error',
@@ -33,32 +34,46 @@ const DashboardCards = () => {
   const { categories, totalBookingsAll, totalRevenueAll, adminProfit } = data[0] || {}
 
   return (
-    <div className="dashboard-cards-container">
+    <>
+      {
+        data.length > 0 ? (
+        <div className="dashboard-cards-container">
         
-        {/* Admin Profit Card */}
-        <div className="dashboard-card admin-profit-card">
-            <h3>Admin Profit</h3>
-            <p>{parseInt(adminProfit)}</p>
-        </div>
+          {/* Admin Profit Card */}
+          <div className="dashboard-card admin-profit-card">
+              <h3>Admin Profit</h3>
+              <p>{parseInt(adminProfit)}</p>
+          </div>
 
-        {/* Cards for Each Category */}
-        {categories &&
+          {/* Cards for Each Category */}
+          {categories &&
             categories.map((category, index) => (
-                <div key={index} className="dashboard-card">
-                    <h3>{category.category}</h3>
-                    <p>Total Bookings: {category.totalBookings}</p>
-                    <p>Total Revenue: {category.totalRevenue}</p>
-                </div>
+              <div key={index} className="dashboard-card">
+                  <h3>{category.category}</h3>
+                  <p>Total Bookings: {category.totalBookings}</p>
+                  <p>Total Revenue: {category.totalRevenue}</p>
+              </div>
             ))
-        }
+          }
 
-        {/* Summary Card for All Categories */}
-        <div className="dashboard-card total-card">
-            <h3>Total</h3>
-            <p>Total Bookings: {totalBookingsAll}</p>
-            <p>Total Revenue: {totalRevenueAll}</p>
+          {/* Summary Card for All Categories */}
+          <div className="dashboard-card total-card">
+              <h3>Total</h3>
+              <p>Total Bookings: {totalBookingsAll}</p>
+              <p>Total Revenue: {totalRevenueAll}</p>
+          </div>
         </div>
-    </div>
+        ) : (
+          <div className="d-flex justify-content-center mt-4">
+            <FadeLoader
+              color={"#7aa9ab"}
+              loading={loading}
+              size={30}
+            />
+          </div>
+        )
+      }
+    </>
   )
 }
 

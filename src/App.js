@@ -14,7 +14,7 @@ import { startGetUserData } from "./redux/actions/user-actions"
 function App() {
   const reduxDispatch = useDispatch()
 
-  const [state, dispatch] = useReducer(reducer, { toggle: false, categories:[], userLoggedIn: false, search: "" })
+  const [state, dispatch] = useReducer(reducer, { toggle: true, categories:[], userLoggedIn: false, search: "" })
 
   const [error, setError] = useState("")
 
