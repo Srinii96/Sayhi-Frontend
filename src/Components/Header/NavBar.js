@@ -59,33 +59,44 @@ const NavBar = ()=>{
     }
 
     const handleLogout = () => {
-        Swal.fire({
-            title: 'Are you sure... ?',
-            icon: 'warning',
-            showCancelButton: true,
-            confirmButtonColor: '#3085d6',
-            cancelButtonColor: '#d33',
-            confirmButtonText: 'Yes, log out!'
-        }).then((result) => {
-            if (result.isConfirmed) {
-                localStorage.clear();
-                setUserRole("");
+        // Swal.fire({
+        //     title: 'Are you sure... ?',
+        //     icon: 'warning',
+        //     showCancelButton: true,
+        //     confirmButtonColor: '#3085d6',
+        //     cancelButtonColor: '#d33',
+        //     confirmButtonText: 'Yes, log out!'
+        // }).then((result) => {
+        //     if (result.isConfirmed) {
+        //         localStorage.clear();
+        //         setUserRole("");
     
-                dispatch({
+        //         dispatch({
+        //             type: "SIGN_IN_TOGGLE",
+        //             payload: !state.toggle
+        //         });
+    
+        //         window.location.reload();
+        //         navigate("/");
+        //     }
+        // })
+
+        localStorage.clear()
+        setUserRole("")
+    
+        dispatch({
                     type: "SIGN_IN_TOGGLE",
                     payload: !state.toggle
-                });
-    
-                window.location.reload();
-                navigate("/");
-            }
         })
+    
+        // window.location.reload()
+        navigate("/")
     }
 
     useEffect(() => {
-        // if (isTokenExpired()) {
-        //     handleLogout()
-        // }
+        if (isTokenExpired()) {
+            handleLogout()
+        }
 
         const intervalId = setInterval(() => {
             if (isTokenExpired()) {

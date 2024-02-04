@@ -1,7 +1,10 @@
-import React from 'react'
+import { useState } from 'react'
 import { Card, Table } from 'react-bootstrap'
+import { FadeLoader } from "react-spinners"
 
 const CategoryServicesTable = ({ categories }) => {
+  const [ loading, setLoading ] = useState(true)
+
   const colors = [
     "#FF4500", "#00FF7F", "#8A2BE2", "#32CD32", "#FFD700",
     "#4682B4", "#9400D3", "#DC143C", "#20B2AA", "#00CED1",
@@ -17,32 +20,44 @@ const CategoryServicesTable = ({ categories }) => {
 
   return (
     <>
-        <div className='text-center m-4'>
-            <h4 style={{fontSize: '18px', fontStyle: 'italic', fontWeight: 'bold'}}>Categories & their services</h4>
-        </div>
-      <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
-        {categories.map((category, index) => (
-          <Card key={category._id} style={{ width: '14rem', margin: '2px', boxShadow: '0 2px 4px 0 rgba(0,0,0,0.2)', transition: '0.3s', backgroundColor: colors[index % colors.length] }}>
-            <Card.Body>
-              <Card.Title className='text-decoration-underline'>{category.title}</Card.Title>
-              <Table striped bordered hover size="sm">
-                <thead>
-                  <tr>
-                    <th>Service Name</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {category.serviceIds.map((service) => (
-                    <tr key={service._id}>
-                      <td>{service.serviceName}</td>
-                    </tr>
-                  ))}
-                </tbody>
-              </Table>
-            </Card.Body>
-          </Card>
-        ))}
+      <div className='text-center m-4'>
+        <h4 style={{fontSize: '18px', fontStyle: 'italic', fontWeight: 'bold'}}>Categories & their services</h4>
       </div>
+      {
+        categories.length > 0 ? (
+        <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'space-around' }}>
+          {categories.map((category, index) => (
+            <Card key={category._id} style={{ width: '14rem', margin: '2px', boxShadow: '0 2px 4px 0 rgba(0,0,0,0.2)', transition: '0.3s', backgroundColor: colors[index % colors.length] }}>
+              <Card.Body>
+                <Card.Title className='text-decoration-underline'>{category.title}</Card.Title>
+                <Table striped bordered hover size="sm">
+                  <thead>
+                    <tr>
+                      <th>Service Name</th>
+                    </tr>
+                  </thead>
+                  <tbody>
+                    {category.serviceIds.map((service) => (
+                      <tr key={service._id}>
+                        <td>{service.serviceName}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </Table>
+              </Card.Body>
+            </Card>
+          ))}
+        </div>
+        ) : (
+          <div className="d-flex justify-content-center mt-4">
+            <FadeLoader
+              color={"#7aa9ab"}
+              loading={loading}
+              size={30}
+            />
+          </div>
+        )
+      }
     </>
   )
 }
