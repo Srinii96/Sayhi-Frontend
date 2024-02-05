@@ -25,7 +25,7 @@ const UserLogin = ()=>{
     useEffect(() => {
         const queryParams = new URLSearchParams(location.search)
         const message = queryParams.get('message')
-    
+        console.log(message, "122222222")
         if (message) {
           toast.success(message, {
             position: "top-right",
