@@ -93,24 +93,24 @@ const NavBar = ()=>{
         navigate("/")
     }
 
-    useEffect(() => {
-        const token = localStorage.getItem('token')
-        if (!token) {
-            return
-        }
+    // useEffect(() => {
+    //     const token = localStorage.getItem('token')
+    //     if (!token) {
+    //         return
+    //     }
 
-        if (isTokenExpired()) {
-            handleLogout()
-        }
+    //     if (isTokenExpired()) {
+    //         handleLogout()
+    //     }
 
-        const intervalId = setInterval(() => {
-            if (isTokenExpired()) {
-                handleLogout()
-            }
-        }, 3600000)
+    //     const intervalId = setInterval(() => {
+    //         if (isTokenExpired()) {
+    //             handleLogout()
+    //         }
+    //     }, 3600000)
 
-        return () => clearInterval(intervalId)
-    }, [])
+    //     return () => clearInterval(intervalId)
+    // }, [])
 
     return(
         <>
