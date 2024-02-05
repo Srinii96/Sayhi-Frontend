@@ -72,12 +72,7 @@ const UserLogin = ()=>{
                 resetForm()
                 const token = userLogin.data.token
                 localStorage.setItem("token", token)
-                
-                // Check if the response includes a redirectUrl
-                if (userLogin.data.redirectUrl) {
-                    window.location.href = userLogin.data.redirectUrl
-                } else {
-                    toast.success("Logged in successfully!", {
+                toast.success("Logged in successfully!", {
                     position: "top-right",
                     autoClose: 3000,
                     hideProgressBar: false,
@@ -86,17 +81,14 @@ const UserLogin = ()=>{
                     draggable: true,
                     progress: undefined,
                     theme: "colored",
-                    })
-
-                    setTimeout(() => {
+                })
+                setTimeout(()=>{
                     navigate("/")
-
                     dispatch({
                         type: "USER_LOGGED_IN",
-                        payload: true,
+                        payload: true
                     })
-                    }, 2000)
-                }    
+                }, 2000)
             } catch(err){
                 toast.error( err.response.data.error, {
                     position: "top-right",
