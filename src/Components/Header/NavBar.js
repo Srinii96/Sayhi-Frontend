@@ -99,9 +99,9 @@ const NavBar = ()=>{
         //     return
         // }
 
-        if (isTokenExpired()) {
-            handleLogout()
-        }
+        // if (isTokenExpired()) {
+        //     handleLogout()
+        // }
 
         const intervalId = setInterval(() => {
             if (isTokenExpired()) {
