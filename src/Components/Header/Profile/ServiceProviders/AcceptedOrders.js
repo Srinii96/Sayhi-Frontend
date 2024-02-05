@@ -10,7 +10,7 @@ import OtpModal from "./OtpModal"
 import EnterAmount from "./EnterAmount"
 import "./LatestOrders.css"
 
-const socket = io.connect("http://localhost:3699")
+const socket = io.connect("https://service-at-your-home.onrender.com")
 
 const AcceptedOrders = () => {
     const { enqueueSnackbar } = useSnackbar()

@@ -5,7 +5,7 @@ import { jwtDecode } from "jwt-decode"
 import { useSnackbar } from 'notistack'
 import NavBar from "./NavBar"
 
-const socket = io.connect("http://localhost:3699")
+const socket = io.connect("https://service-at-your-home.onrender.com")
 
 const Header = ()=>{
     const { enqueueSnackbar } = useSnackbar()
