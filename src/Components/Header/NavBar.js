@@ -94,14 +94,14 @@ const NavBar = ()=>{
     }
 
     useEffect(() => {
-        // const token = localStorage.getItem('token')
-        // if (!token) {
-        //     return
-        // }
+        const token = localStorage.getItem('token')
+        if (!token) {
+            return
+        }
 
-        // if (isTokenExpired()) {
-        //     handleLogout()
-        // }
+        if (isTokenExpired()) {
+            handleLogout()
+        }
 
         const intervalId = setInterval(() => {
             if (isTokenExpired()) {
