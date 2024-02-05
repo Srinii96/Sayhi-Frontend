@@ -94,9 +94,9 @@ const NavBar = ()=>{
     }
 
     useEffect(() => {
-        if (isTokenExpired()) {
-            handleLogout()
-        }
+        // if (isTokenExpired()) {
+        //     handleLogout()
+        // }
 
         const intervalId = setInterval(() => {
             if (isTokenExpired()) {
