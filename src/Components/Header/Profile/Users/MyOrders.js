@@ -10,7 +10,7 @@ import "./MyOrders.css"
 import OrdersList from "./OrdersList"
 import PaymentModal from "./PaymentModal"
 
-const socket = io.connect("http://localhost:3699")
+const socket = io.connect("https://service-at-your-home.onrender.com")
 
 const MyOrders = () => {
   const location = useLocation()
